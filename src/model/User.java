@@ -1,5 +1,12 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import mysql.DBConnection;
+
 public class User {
  
 	private String userEmail;
@@ -15,6 +22,35 @@ public class User {
 	public User(String userEmail, String user_password){
 		this.userEmail = userEmail;
 		this.user_Password = user_password; 
+	}
+	
+	public User(int id){
+		this.user_id = id;
+		
+		Connection con;
+		ResultSet rs;
+		Statement st = null;
+		try {
+			con = DBConnection.getConnection();
+			String query = "select * from users where user_id = " + id + ";";
+			st = con.createStatement();
+			rs = st.executeQuery(query);
+			
+			this.userEmail = rs.getString("user_email");
+			this.user_Password = rs.getString("user_password");
+			this.first_name = rs.getString("user_firsttname");
+			this.middle_name = rs.getString("user_middlename");
+			this.last_name = rs.getString("user_lastname");
+			this.userAddress = rs.getString("user_address");
+			
+			DBConnection.close(rs, st);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	public User(String email, String password, int id, String account,
 			String firstName, String lastName, String middleName, 
@@ -110,6 +146,28 @@ public class User {
  
 	public void setPassword(String password) {
 		this.user_Password = password;
+	}
+	
+	public static boolean isCustomer(int id){
+		boolean auth = false;
+		try{
+			Connection con = DBConnection.getConnection();
+			String query = "select * from customer where user_email = '"  + "' and user_password = '" + "';";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			
+			if(rs.next()){
+				//result set is not empty, user exists
+				auth = true;
+			}
+			DBConnection.close(rs, st);
+			
+		}catch(Exception e){
+			System.out.println("Connection failed");
+			e.printStackTrace();
+			return false;
+		}
+		return auth;
 	}
  
 }

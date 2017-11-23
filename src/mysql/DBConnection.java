@@ -3,7 +3,9 @@ package mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 
 
@@ -27,5 +29,14 @@ public class DBConnection {
             e.printStackTrace();
         }
         return connect;		
+    }
+    
+    public static void close(ResultSet rs, Statement st){
+    	try {
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
     }
 }

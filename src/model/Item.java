@@ -8,13 +8,13 @@ import java.sql.Statement;
 import mysql.DBConnection;
 
 public class Item {
-	int itemId;
-	String itemName;
-	int quantity;
-	String department;
-	BigDecimal price;
-	String description;
-	User seller;
+	private int itemId;
+	private String itemName;
+	private int quantity;
+	private String department;
+	private BigDecimal price;
+	private String description;
+	private User seller;
 	
 
 	public Item(int itemId){
@@ -27,15 +27,14 @@ public class Item {
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			
-			rs.getInt("item_id");
-			rs.getString("item_name");
-			rs.getInt("quantity");
-			rs.getString("department");
-			rs.getBigDecimal("price");
-			rs.getString("description");
-			rs.getInt("seller_id");
+			this.itemName = rs.getString("item_name");
+			this.quantity = rs.getInt("quantity");
+			this.department = rs.getString("department");
+			this.price = rs.getBigDecimal("price");
+			this.description = rs.getString("description");
 			
-			//seller = new User();
+			DBConnection.close(rs, st);
+			//seller = new User(rs.getInt("seller_id"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -45,6 +44,76 @@ public class Item {
 	}
 	
 	
+	public int getItemId() {
+		return itemId;
+	}
+
+
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+
+
+	public String getItemName() {
+		return itemName;
+	}
+
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+
+	public String getDepartment() {
+		return department;
+	}
+
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+	public User getSeller() {
+		return seller;
+	}
+
+
+	public void setSeller(User seller) {
+		this.seller = seller;
+	}
+
+
 	public static void addItemToDB(String itemName, int quantity, String departnemt, BigDecimal price, 
 			String description, int sellerId){
 		//TO DO
