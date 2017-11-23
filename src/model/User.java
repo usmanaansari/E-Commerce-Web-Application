@@ -251,8 +251,8 @@ public class User {
 		try {
 			
 			Connection con = DBConnection.getConnection();
-			//String query = "delete from users where user_ID = " + user_id + ";";
-			String query = "delete from users where user_ID = " + 9876 + ";";
+			String query = "delete from users where user_ID = " + user_id + ";";
+			//String query = "delete from users where user_ID = " + 9876 + ";";
 			Statement st = con.createStatement();
 			st.executeUpdate(query);
 			
@@ -270,8 +270,8 @@ public class User {
 		try {
 			
 			Connection con = DBConnection.getConnection();
-			//String query = "delete from seller where user_ID = " + user_id + ";";
-			String query = "delete from seller where seller_ID = " + 9876 + ";";
+			String query = "delete from seller where seller_ID = " + user_id + ";";
+			//String query = "delete from seller where seller_ID = " + 9876 + ";";
 
 			Statement st = con.createStatement();
 			st.executeUpdate(query);
@@ -289,8 +289,8 @@ public class User {
 		try {
 			
 			Connection con = DBConnection.getConnection();
-			//String query = "delete from customer where user_ID = " + user_id + ";";
-			String query = "delete from customer where customer_ID = " + 9876 + ";";
+			String query = "delete from customer where customer_ID = " + user_id + ";";
+			//String query = "delete from customer where customer_ID = " + 9876 + ";";
 			Statement st = con.createStatement();
 			st.executeUpdate(query);
 
