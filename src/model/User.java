@@ -23,6 +23,19 @@ public class User {
 		this.userEmail = userEmail;
 		this.user_Password = user_password;
 	}
+	
+	public User(String email, String password, int id, String account, String firstName, String lastName,
+			String middleName, String userAddress) {
+
+		userEmail = email;
+		user_Password = password;
+		user_id = id;
+		accountType = account;
+		first_name = firstName;
+		last_name = lastName;
+		middle_name = middleName;
+		this.userAddress = userAddress;
+	}
 
 	public User(int id) {
 		this.user_id = id;
@@ -67,18 +80,7 @@ public class User {
 				+ ", first_name=" + first_name + ", last_name=" + last_name + ", userAddress=" + userAddress + "]";
 	}
 
-	public User(String email, String password, int id, String account, String firstName, String lastName,
-			String middleName, String userAddress) {
-
-		userEmail = email;
-		user_Password = password;
-		user_id = id;
-		accountType = account;
-		first_name = firstName;
-		last_name = lastName;
-		middle_name = middleName;
-		this.userAddress = userAddress;
-	}
+	
 
 	public String getUserEmail() {
 		return userEmail;
@@ -148,13 +150,158 @@ public class User {
 		this.user_Password = password;
 	}
 	
-	public void addUserToDB(String email, String password, String account, String firstName, String lastName,
-			String middleName, String userAddress){
-		//TODO
+	public void addUserToDB(){
+		
+		addUserToUser();
+		
+		if(accountType == "seller") {
+			addUserToSeller();
+		}
+		
+		else {
+			addUserToCustomer();
+		}
+	}
+	
+	private void addUserToUser() {
+		
+
+		try {
+			
+			Connection con = DBConnection.getConnection();
+			
+			String query = "insert into users(user_ID,user_password,"
+					+ "user_firstname,user_middlename,user_lastname," + 
+					"user_address,user_email)"
+					+ "VALUES("+ 
+					user_id + "," + "\'" + user_Password+"\'," + "\'" + 
+					first_name+"\',"
+					+ "\'" + middle_name+"\'," + "\'" + last_name+"\',"
+					+ "\'" + userAddress+"\'," + "\'" + userEmail+"\')";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			
+			con.close();
+
+		} 
+		catch (Exception e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+		
+		}
+	}
+	
+	private void addUserToSeller() {
+		
+
+		try {
+			
+			Connection con = DBConnection.getConnection();
+			
+			String query = "insert into seller(seller_ID)"
+					+ "VALUES("+user_id+");";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			
+			con.close();
+
+		} 
+		catch (Exception e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+		
+		}
+	}
+	
+	private void addUserToCustomer() {
+		
+		try {
+			
+			Connection con = DBConnection.getConnection();
+			
+			String query = "insert into customer(customer_ID)"
+					+ "VALUES("+user_id+");";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			
+			con.close();
+
+		} 
+		catch (Exception e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+		
+		}
 	}
 	
 	public void deleteUserFromDB(){
-		//TODO
+		
+		deleteFromUsers();
+		
+		
+		if(accountType == "customer") {
+			deleteFromCustomer();
+		}
+		else {
+			deleteFromSeller();
+		}
+	}
+	
+	private void deleteFromUsers() {
+		try {
+			
+			Connection con = DBConnection.getConnection();
+			//String query = "delete from users where user_ID = " + user_id + ";";
+			String query = "delete from users where user_ID = " + 9876 + ";";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			
+			con.close();
+
+		} catch (Exception e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+			
+		}
+		
+	}
+	
+	private void deleteFromSeller() {
+		try {
+			
+			Connection con = DBConnection.getConnection();
+			//String query = "delete from seller where user_ID = " + user_id + ";";
+			String query = "delete from seller where seller_ID = " + 9876 + ";";
+
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			con.close();
+			
+		} catch (Exception e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+			
+		}
+		
+	}
+	
+	private void deleteFromCustomer() {
+		try {
+			
+			Connection con = DBConnection.getConnection();
+			//String query = "delete from customer where user_ID = " + user_id + ";";
+			String query = "delete from customer where customer_ID = " + 9876 + ";";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+
+			con.close();
+			
+		} catch (Exception e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+			
+		}
+		
 	}
 
 	public static boolean isCustomer(int id) {
