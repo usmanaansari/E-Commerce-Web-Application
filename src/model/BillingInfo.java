@@ -9,7 +9,7 @@ import mysql.DBConnection;
 public class BillingInfo {
 	
 	private int billing_ID;
-	private int user_ID;
+	private User user;
 	private String card_Number;
 	private String expirationDate;
 	private int security_Code;
@@ -48,7 +48,6 @@ public class BillingInfo {
 			int security_Code, String billing_Address) {
 		
 		this.billing_ID = billing_ID;
-		this.user_ID = user_ID;
 		this.card_Number = card_Number;
 		this.expirationDate = expirationDate;
 		this.security_Code = security_Code;
@@ -64,13 +63,6 @@ public class BillingInfo {
 		this.billing_ID = billing_ID;
 	}
 
-	public int getUser_ID() {
-		return user_ID;
-	}
-
-	public void setUser_ID(int user_ID) {
-		this.user_ID = user_ID;
-	}
 
 	public String getCard_Number() {
 		return card_Number;

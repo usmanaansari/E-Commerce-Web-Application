@@ -9,11 +9,10 @@ import mysql.DBConnection;
 public class Review {
 	
 	private int reviewID;
-	private int sellerID;
-	private int customerID;
-	private int billingID;
-	private int amount;
-	private String paymentType;
+	private Item item;
+	private User customer;
+	private String description;
+	private int rating;
 	
 	public Review(int reviewID) {
 		//
@@ -27,11 +26,11 @@ public class Review {
 			ResultSet rs = st.executeQuery(query);
 			
 			//we need to remove seller_ID from the DB
-			rs.getInt("Review_ID");
-			rs.getInt("Customer_ID");
-			rs.getInt("Item_ID");		
-			rs.getString("Description");
-			rs.getInt("Rating");
+			this.reviewID = rs.getInt("Review_ID");
+			int customerID = rs.getInt("Customer_ID");
+			int itemID = rs.getInt("Item_ID");		
+			this.description = rs.getString("Description");
+			this.rating = rs.getInt("Rating");
 			
 
 		} catch (Exception e) {
@@ -41,13 +40,14 @@ public class Review {
 		
 	}
 	
-	public Review(int reviewID, int sellerID, int customerID, int billingID, int amount, String paymentType) {
+	public Review(){
+		
+	}
+	
+	public Review(int reviewID,  int customerID) {
 		this.reviewID = reviewID;
-		this.sellerID = sellerID;
-		this.customerID = customerID;
-		this.billingID = billingID;
-		this.amount = amount;
-		this.paymentType = paymentType;
+		
+
 	}
 	
 	public int getReviewID() {
@@ -58,46 +58,17 @@ public class Review {
 		this.reviewID = reviewID;
 	}
 
-	public int getSellerID() {
-		return sellerID;
-	}
-	
-	public void setSellerID(int sellerID) {
-		this.sellerID = sellerID;
+	public User getCustomer() {
+		return customer;
 	}
 
-	public int getCustomerID() {
-		return customerID;
+	public void setCustomer(User customer) {
+		this.customer = customer;
 	}
-	
-	public void setCustomerID(int customerID) {
-		this.customerID = customerID;
-	}
-	
-	public int getBillingID() {
-		return billingID;
-	}
-	
-	public void setBillingID(int billingID) {
-		this.billingID = billingID;
-	}
-	
-	public int getAmount() {
-		return amount;
-	}
-	
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
+
+
 	
 
 
-	public String getPaymentType() {
-		return paymentType; 
-	}
-	
-	public void setPaymentType(String paymentType) {
-		this.paymentType = paymentType;
-	}
 }
 

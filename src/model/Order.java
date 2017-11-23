@@ -3,7 +3,7 @@ package model;
 public class Order {
 
 	private int order_ID;
-	private int customer_ID;
+	private User customer;
 	private String order_status;
 	private int total;
 	private String order_date;
@@ -16,12 +16,13 @@ public class Order {
 		this.order_ID = order_ID;
 	}
 
-	public int getCustomer_ID() {
-		return customer_ID;
+
+	public User getCustomer() {
+		return customer;
 	}
 
-	public void setCustomer_ID(int customer_ID) {
-		this.customer_ID = customer_ID;
+	public void setCustomer(User customer) {
+		this.customer = customer;
 	}
 
 	public String getOrder_status() {
@@ -56,7 +57,6 @@ public class Order {
 			int total, String order_date) {
 		
 		this.order_ID = order_ID;
-		this.customer_ID = customer_ID;
 		this.order_date = order_date;
 		this.order_status = order_status;
 		this.total = total;
