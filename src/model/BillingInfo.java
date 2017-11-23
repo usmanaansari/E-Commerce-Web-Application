@@ -96,5 +96,15 @@ public class BillingInfo {
 		this.billing_Address = billing_Address;
 	}
 	
+	public void addBillingInfoToDB(int user_ID, 
+			String card_Number, String expirationDate,
+			int security_Code, String billing_Address){
+		//TODO
+	}
+	
+	public void deleteBillingInfoFromDB(){
+		//TODO
+	}
+	
 	
 }

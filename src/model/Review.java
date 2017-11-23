@@ -28,7 +28,9 @@ public class Review {
 			//we need to remove seller_ID from the DB
 			this.reviewID = rs.getInt("Review_ID");
 			int customerID = rs.getInt("Customer_ID");
-			int itemID = rs.getInt("Item_ID");		
+			this.customer = new User(customerID);
+			int itemID = rs.getInt("Item_ID");	
+			this.item = new Item(itemID);
 			this.description = rs.getString("Description");
 			this.rating = rs.getInt("Rating");
 			

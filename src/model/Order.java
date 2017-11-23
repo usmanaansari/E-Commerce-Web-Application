@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Order {
 
 	private int order_ID;
@@ -60,6 +62,21 @@ public class Order {
 		this.order_date = order_date;
 		this.order_status = order_status;
 		this.total = total;
+	}
+	
+	public void addOrderToDB(int customer_ID, int total, String order_date){
+		String order_status = "processed";
+		//TODO
+	}
+	
+	public void removeOrderFromDB(){
+		//TODO
+	}
+	
+	public ArrayList<Item> getItems(){
+		//TODO query db order_items and return all items for this order
+		ArrayList<Item> items = null;
+		return items;
 	}
 	
 }

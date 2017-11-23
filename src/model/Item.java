@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import mysql.DBConnection;
 
@@ -116,15 +117,22 @@ public class Item {
 
 	public static void addItemToDB(String itemName, int quantity, String departnemt, BigDecimal price, 
 			String description, int sellerId){
-		//TO DO
+		//TODO
 	}
 	
-	public static void deleteItemFromDB(int itemId){
-		//TO DO
+	//deletes this item from db 
+	public void deleteItemFromDB(){
+		//TODO
 	}
 	
 	//decrements quantity of item in db when bought 
-	public static void decrementQuantity(int itemId){
-		//TO DO
+	public void decrementQuantity(){
+		//TODO
+	}
+	
+	public ArrayList<Review> getReviews(){
+		//TODO 
+		ArrayList<Review> reviews = null;
+		return reviews;
 	}
 }
