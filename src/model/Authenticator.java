@@ -12,7 +12,7 @@ public class Authenticator {
 		boolean auth = false;
 		try{
 			Connection con = DBConnection.getConnection();
-			String query = "select * from user where user_email = '" + username + "' and user_password = '" + password + "';";
+			String query = "select * from users where user_email = '" + username + "' and user_password = '" + password + "';";
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			
@@ -20,6 +20,7 @@ public class Authenticator {
 				//result set is not empty, user exists
 				auth = true;
 			}
+			DBConnection.close(rs, st);
 			
 		}catch(Exception e){
 			System.out.println("Connection failed");
