@@ -16,6 +16,7 @@ public class Review {
 	private String paymentType;
 	
 	public Review(int reviewID) {
+		//
 		this.reviewID = reviewID;
 		
 		Connection con;
@@ -29,8 +30,8 @@ public class Review {
 			rs.getInt("Review_ID");
 			rs.getInt("Customer_ID");
 			rs.getInt("Item_ID");		
-			rs.getInt("Rating");
 			rs.getString("Description");
+			rs.getInt("Rating");
 			
 
 		} catch (Exception e) {

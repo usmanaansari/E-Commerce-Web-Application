@@ -18,6 +18,7 @@ public class BillingInfo {
 	
 	public BillingInfo(int billing_ID) {
 		//Need to Query using Billing Id
+		//
 		this.billing_ID = billing_ID;
 		
 		Connection con;
