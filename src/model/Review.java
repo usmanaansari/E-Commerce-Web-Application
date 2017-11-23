@@ -51,13 +51,21 @@ public class Review {
 		
 
 	}
-	
+
 	public int getReviewID() {
 		return reviewID;
 	}
 
 	public void setReviewID(int reviewID) {
 		this.reviewID = reviewID;
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
 	}
 
 	public User getCustomer() {
@@ -67,6 +75,29 @@ public class Review {
 	public void setCustomer(User customer) {
 		this.customer = customer;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+
+	@Override
+	public String toString() {
+		return "Review [reviewID=" + reviewID + ", item=" + item + ", description=" + description + ", rating=" + rating
+				+ "]";
+	}
+
 
 
 	

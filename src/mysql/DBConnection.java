@@ -31,10 +31,11 @@ public class DBConnection {
         return connect;		
     }
     
-    public static void close(ResultSet rs, Statement st){
+    public static void close(Connection con, ResultSet rs, Statement st){
     	try {
-			rs.close();
-			st.close();
+    			if(con!= null) con.close();
+			if(rs != null) rs.close();
+			if(st != null) st.close();
 		} catch (SQLException e) {
 			// TODO: handle exception
 		}

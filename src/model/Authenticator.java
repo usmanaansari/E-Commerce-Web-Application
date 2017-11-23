@@ -20,7 +20,7 @@ public class Authenticator {
 				//result set is not empty, user exists
 				auth = true;
 			}
-			DBConnection.close(rs, st);
+			DBConnection.close(con, rs, st);
 			
 		}catch(Exception e){
 			System.out.println("Connection failed");
