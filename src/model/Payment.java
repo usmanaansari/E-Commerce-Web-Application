@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Payment {
 
 	private String payment_type;
@@ -57,6 +59,13 @@ public class Payment {
 
 	public void setBillingInfo(BillingInfo billingInfo) {
 		this.billingInfo = billingInfo;
+	}
+	
+	
+	public static ArrayList<Payment> getPayments(int userID){
+		//TODO query db payment and return all payments this seller has received 
+		ArrayList<Payment> payments = null;
+		return payments;
 	}
 	
 	

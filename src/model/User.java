@@ -348,35 +348,9 @@ public class User {
 		return isSeller;
 	}
 	
-	public ArrayList<BillingInfo> getBillingInfo(){
-		//TODO query db billing_info and return all billing info for this user
-		ArrayList<BillingInfo> billingInfo = null;
-		return billingInfo;
-	}
 	
 	
-	public ArrayList<Order> getOrdersForUser(){
-		//TODO query db order_items and return all orders for this customer (will return empty list if user is not customer)
-		ArrayList<Order> orders = null;
-		return orders;
-	}
 	
-	public ArrayList<Item> getCartItems(){
-		//TODO query db seller_items and return all items for this seller (will return empty list if user is not customer)
-		ArrayList<Item> items = null;
-		return items;
-	}
-	
-	public ArrayList<Item> getSellerItems(){
-		//TODO query db seller_items and return all items for this seller (will return empty list if user is not seller)
-		ArrayList<Item> items = null;
-		return items;
-	}
-	
-	public ArrayList<Payment> getPayments(){
-		//TODO query db payment and return all payments this seller has received 
-		ArrayList<Payment> payments = null;
-		return payments;
-	}
+
 
 }

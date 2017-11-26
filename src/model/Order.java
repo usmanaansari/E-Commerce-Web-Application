@@ -79,4 +79,10 @@ public class Order {
 		return items;
 	}
 	
+	public static ArrayList<Order> getOrdersForUser(int userID){
+		//TODO query db order_items and return all orders for this customer (will return empty list if user is not customer)
+		ArrayList<Order> orders = null;
+		return orders;
+	}
+	
 }

@@ -3,6 +3,7 @@ package model;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import mysql.DBConnection;
 
@@ -98,7 +99,32 @@ public class Review {
 				+ "]";
 	}
 
+	public static ArrayList<Review> getReviews(int itemId) {
+		ArrayList<Review> reviews = new ArrayList<Review>();
 
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "select * from review where item_id =" + itemId + ";";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			while (rs.next()) {
+				Review rev = new Review();
+				rev.setReviewID(rs.getInt("review_id"));
+				rev.setItem(new Item(rs.getInt("item_id")));
+				rev.setCustomer(new User(rs.getInt("customer_id")));
+				rev.setDescription(rs.getString("description"));
+				rev.setRating(rs.getInt("rating"));
+
+				reviews.add(rev);
+			}
+
+			DBConnection.close(con, rs, st);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return reviews;
+	}
 
 	
 

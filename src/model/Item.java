@@ -249,33 +249,18 @@ public class Item {
 		return items;
 	}
 	
-
-	public static ArrayList<Review> getReviews(int itemId) {
-		ArrayList<Review> reviews = new ArrayList<Review>();
-
-		try {
-			Connection con = DBConnection.getConnection();
-			String query = "select * from review where item_id =" + itemId + ";";
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery(query);
-
-			while (rs.next()) {
-				Review rev = new Review();
-				rev.setReviewID(rs.getInt("review_id"));
-				rev.setItem(new Item(rs.getInt("item_id")));
-				rev.setCustomer(new User(rs.getInt("customer_id")));
-				rev.setDescription(rs.getString("description"));
-				rev.setRating(rs.getInt("rating"));
-
-				reviews.add(rev);
-			}
-
-			DBConnection.close(con, rs, st);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return reviews;
+	public static ArrayList<Item> getCartItems(int userID){
+		//TODO query db seller_items and return all items for this seller (will return empty list if user is not customer)
+		ArrayList<Item> items = null;
+		return items;
 	}
+	
+	public static ArrayList<Item> getSellerItems(int userID){
+		//TODO query db seller_items and return all items for this seller (will return empty list if user is not seller)
+		ArrayList<Item> items = null;
+		return items;
+	}
+
 	
 	
 

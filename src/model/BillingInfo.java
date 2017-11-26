@@ -3,6 +3,7 @@ package model;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import mysql.DBConnection;
 
@@ -106,5 +107,10 @@ public class BillingInfo {
 		//TODO
 	}
 	
+	public static ArrayList<BillingInfo> getBillingInfo(int userId){
+		//TODO query db billing_info and return all billing info for this user
+		ArrayList<BillingInfo> billingInfo = null;
+		return billingInfo;
+	}
 	
 }
