@@ -34,9 +34,9 @@ public class Item {
 				this.price = rs.getBigDecimal("price");
 				this.description = rs.getString("description");
 			}
-
+			
+			seller = new User(rs.getInt("seller_id"));
 			DBConnection.close(con, rs, st);
-			// seller = new User(rs.getInt("seller_id"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -250,14 +250,74 @@ public class Item {
 	}
 	
 	public static ArrayList<Item> getCartItems(int userID){
-		//TODO query db seller_items and return all items for this seller (will return empty list if user is not customer)
-		ArrayList<Item> items = null;
+		//TODO query db cart items and return all items for this customer (will return empty list if user is not customer)
+		ArrayList<Item> items = new ArrayList<Item>();
+		
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "select * from cart_items where customer_id = '" + userID + "';";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			
+			while(rs.next()) {
+				int itemId = rs.getInt("item_id");
+				items.add(new Item(itemId));
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return items;
 	}
 	
 	public static ArrayList<Item> getSellerItems(int userID){
 		//TODO query db seller_items and return all items for this seller (will return empty list if user is not seller)
-		ArrayList<Item> items = null;
+		
+		ArrayList<Item> items = new ArrayList<Item>();
+		
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "select * from item where seller_id = '" + userID + "';";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			
+			while(rs.next()) {
+				Item i = new Item();
+				i.itemId = rs.getInt("item_id");
+				i.itemName = rs.getString("item_name");
+				i.department = rs.getString("department");
+				i.description = rs.getString("description");
+				i.price = rs.getBigDecimal("price");
+				i.quantity = rs.getInt("quantity");
+				i.seller = new User(rs.getInt("seller_id"));
+				
+				items.add(i);
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return items;
+	}
+	
+	public static ArrayList<Item> getOrderItems(int orderID){
+		//TODO query db order_items and return all items for this order
+		ArrayList<Item> items = new ArrayList<Item>();
+		
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "select * from order_items where order_id = '" + orderID + "';";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			
+			while(rs.next()) {
+				int itemId = rs.getInt("item_id");
+				items.add(new Item(itemId));
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return items;
 	}
 
