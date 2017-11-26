@@ -53,6 +53,9 @@ public class Item {
 		this.seller = new User(sellerID);
 	}
 
+	public Item() {
+	}
+
 	public int getItemId() {
 		return itemId;
 	}
@@ -161,6 +164,91 @@ public class Item {
 			e.printStackTrace();
 		}
 	}
+	
+	public static ArrayList<Item> getAllItems(){
+		ArrayList<Item> items = new ArrayList<Item>();
+		
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "select * from item;";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			
+			while(rs.next()) {
+				Item i = new Item();
+				i.itemId = rs.getInt("item_id");
+				i.itemName = rs.getString("item_name");
+				i.department = rs.getString("department");
+				i.description = rs.getString("description");
+				i.price = rs.getBigDecimal("price");
+				i.quantity = rs.getInt("quantity");
+				i.seller = new User(rs.getInt("seller_id"));
+				
+				items.add(i);
+			}
+			DBConnection.close(con, rs, st);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return items;
+	}
+	
+	public static ArrayList<Item> searchItems(String search){
+		ArrayList<Item> items = new ArrayList<Item>();
+		
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "select * from item where item_name like '%" + search + "%';";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			
+			while(rs.next()) {
+				Item i = new Item();
+				i.itemId = rs.getInt("item_id");
+				i.itemName = rs.getString("item_name");
+				i.department = rs.getString("department");
+				i.description = rs.getString("description");
+				i.price = rs.getBigDecimal("price");
+				i.quantity = rs.getInt("quantity");
+				i.seller = new User(rs.getInt("seller_id"));
+				
+				items.add(i);
+			}
+			DBConnection.close(con, rs, st);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return items;
+	}
+	
+	public static ArrayList<Item> searchItemsByDept(String department){
+		ArrayList<Item> items = new ArrayList<Item>();
+		
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "select * from item where department = '" + department + "';";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			
+			while(rs.next()) {
+				Item i = new Item();
+				i.itemId = rs.getInt("item_id");
+				i.itemName = rs.getString("item_name");
+				i.department = rs.getString("department");
+				i.description = rs.getString("description");
+				i.price = rs.getBigDecimal("price");
+				i.quantity = rs.getInt("quantity");
+				i.seller = new User(rs.getInt("seller_id"));
+				
+				items.add(i);
+			}
+			DBConnection.close(con, rs, st);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return items;
+	}
+	
 
 	public static ArrayList<Review> getReviews(int itemId) {
 		ArrayList<Review> reviews = new ArrayList<Review>();
@@ -188,4 +276,7 @@ public class Item {
 		}
 		return reviews;
 	}
+	
+	
+
 }
