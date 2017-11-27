@@ -53,8 +53,6 @@ public class Item {
 		this.seller = new User(sellerID);
 	}
 
-	public Item() {
-	}
 
 	public int getItemId() {
 		return itemId;
@@ -175,7 +173,8 @@ public class Item {
 			ResultSet rs = st.executeQuery(query);
 			
 			while(rs.next()) {
-				Item i = new Item();
+				
+				Item i = new Item(rs.getInt("item_id"));
 				i.itemId = rs.getInt("item_id");
 				i.itemName = rs.getString("item_name");
 				i.department = rs.getString("department");
@@ -203,7 +202,7 @@ public class Item {
 			ResultSet rs = st.executeQuery(query);
 			
 			while(rs.next()) {
-				Item i = new Item();
+				Item i = new Item(rs.getInt("item_id"));
 				i.itemId = rs.getInt("item_id");
 				i.itemName = rs.getString("item_name");
 				i.department = rs.getString("department");
@@ -231,7 +230,7 @@ public class Item {
 			ResultSet rs = st.executeQuery(query);
 			
 			while(rs.next()) {
-				Item i = new Item();
+				Item i = new Item(rs.getInt("item_id"));
 				i.itemId = rs.getInt("item_id");
 				i.itemName = rs.getString("item_name");
 				i.department = rs.getString("department");
@@ -282,7 +281,7 @@ public class Item {
 			ResultSet rs = st.executeQuery(query);
 			
 			while(rs.next()) {
-				Item i = new Item();
+				Item i = new Item(rs.getInt("item_id"));
 				i.itemId = rs.getInt("item_id");
 				i.itemName = rs.getString("item_name");
 				i.department = rs.getString("department");

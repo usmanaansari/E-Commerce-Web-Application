@@ -1,14 +1,53 @@
 package model;
 
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+
+import mysql.DBConnection;
 
 public class Order {
 
 	private int order_ID;
 	private User customer;
 	private String order_status;
-	private int total;
-	private String order_date;
+	private BigDecimal total;
+	private Date order_date;
+	public Order(int order_ID, User customer, String order_status,
+			BigDecimal total, Date order_date) {
+		
+		this.order_ID = order_ID;
+		this.customer = customer;
+		this.order_date = order_date;
+		this.order_status = order_status;
+		this.total = total;
+	}
+	
+	public Order(int orderID) {
+		Connection con;
+		try {
+			con = DBConnection.getConnection();
+			String query = "select * from orders where order_id = " + orderID + ";";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			if (rs.next()) {
+				this.order_ID = rs.getInt("order_ID");
+				this.customer = new User(rs.getInt("customerID")); 
+				this.order_date = rs.getDate("order_date");
+				this.order_status = rs.getString("order_status");
+				this.total = rs.getBigDecimal("total");
+				
+			}
+			DBConnection.close(con, rs, st);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public int getOrder_ID() {
 		return order_ID;
@@ -35,38 +74,40 @@ public class Order {
 		this.order_status = order_status;
 	}
 
-	public int getTotal() {
+	public BigDecimal getTotal() {
 		return total;
 	}
 
-	public void setTotal(int total) {
+	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
 
-	public String getOrder_date() {
+	public Date getOrder_date() {
 		return order_date;
 	}
 
-	public void setOrder_date(String order_date) {
+	public void setOrder_date(Date order_date) {
 		this.order_date = order_date;
-	}
-
-	public Order(int order_ID) {
-		this.order_ID = order_ID;	
-	}
-	
-	public Order(int order_ID, int customer_ID, String order_status,
-			int total, String order_date) {
-		
-		this.order_ID = order_ID;
-		this.order_date = order_date;
-		this.order_status = order_status;
-		this.total = total;
 	}
 	
 	public void addOrderToDB(int customer_ID, int total, String order_date){
 		String order_status = "processed";
-		//TODO
+		try {
+			Connection con = DBConnection.getConnection();
+
+			String query = "insert into orders(order_date, order_status, total, customer)" 
+					+ "VALUES( " + order_date + ", ' " + order_status + "', "+total+", "+customer+");"; 
+					 
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+
+			DBConnection.close(con, null, st);
+
+		} catch (Exception e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+
+		}
 	}
 	
 	public void removeOrderFromDB(){
