@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -97,6 +98,33 @@ public class Review {
 	public String toString() {
 		return "Review [reviewID=" + reviewID + ", item=" + item + ", description=" + description + ", rating=" + rating
 				+ "]";
+	}
+	
+	public void addReviewToDB() {
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "insert into review(rating, customer_id, description, item_id) values (" + rating + ", " +
+			customer.getUser_id() + ", '" + description + "', " + item.getItemId() + ");";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			
+			con.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteFromDB() {
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "delete from review where review_id = " + reviewID + ";";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			
+			con.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	public static ArrayList<Review> getReviews(int itemId) {
