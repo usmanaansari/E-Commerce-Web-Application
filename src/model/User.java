@@ -24,17 +24,17 @@ public class User {
 		this.user_Password = user_password;
 	}
 	
-	public User(String email, String password, int id, String account, String firstName, String lastName,
+	public User(String email, String password, String account, String firstName, String lastName,
 			String middleName, String userAddress) {
 
 		userEmail = email;
 		user_Password = password;
-		user_id = id;
 		accountType = account;
 		first_name = firstName;
 		last_name = lastName;
 		middle_name = middleName;
 		this.userAddress = userAddress;
+		
 	}
 
 	public User(int id) {
@@ -153,6 +153,7 @@ public class User {
 	public void addUserToDB(){
 		
 		addUserToUser();
+		addUserIdToObject();
 		
 		if(accountType == "seller") {
 			addUserToSeller();
@@ -170,11 +171,10 @@ public class User {
 			
 			Connection con = DBConnection.getConnection();
 			
-			String query = "insert into users(user_ID,user_password,"
+			String query = "insert into users(user_password,"
 					+ "user_firstname,user_middlename,user_lastname," + 
 					"user_address,user_email)"
-					+ "VALUES("+ 
-					user_id + "," + "\'" + user_Password+"\'," + "\'" + 
+					+ "VALUES("+ "\'" + user_Password+"\'," + "\'" + 
 					first_name+"\',"
 					+ "\'" + middle_name+"\'," + "\'" + last_name+"\',"
 					+ "\'" + userAddress+"\'," + "\'" + userEmail+"\')";
@@ -227,6 +227,34 @@ public class User {
 			con.close();
 
 		} 
+		catch (Exception e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+		
+		}
+	}
+	
+	public void addUserIdToObject() {
+		
+		try {
+			
+			Connection con = DBConnection.getConnection();
+			
+			String query = "Select user_ID from users Where user_email = \'" + userEmail
+					+ "\'";
+					
+			Statement st = con.createStatement();
+			ResultSet rs;
+			
+			rs = st.executeQuery(query);
+			rs.next();
+			user_id = rs.getInt("user_ID");
+			
+			
+			con.close();
+
+		} 
+		
 		catch (Exception e) {
 			System.out.println("Connection failed");
 			e.printStackTrace();
