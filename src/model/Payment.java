@@ -120,7 +120,7 @@ public class Payment {
 	}
 	
 	public static ArrayList<Payment> getPayments(int userID){
-		//TODO query db payment and return all payments this seller has received 
+		 
 		ArrayList<Payment> payments = null;
 		return payments;
 	}

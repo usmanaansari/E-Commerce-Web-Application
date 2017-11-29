@@ -17,7 +17,9 @@ public class BillingInfo {
 	private int security_Code;
 	private String billing_Address;
 	
-	
+	public BillingInfo() {
+		
+	}
 	public BillingInfo(int billing_ID) {
 		//Need to Query using Billing Id
 		//
@@ -32,7 +34,7 @@ public class BillingInfo {
 			
 			//we need to remove customer_id from db and add user_id
 			while(rs.next()) {
-				user = new User(rs.getInt("customer_id"));
+				user = new User(rs.getInt("user_id"));
 				card_Number = rs.getString("card_number");
 				expirationDate = rs.getDate("expiration_date");
 				security_Code = rs.getInt("security_code");
@@ -41,7 +43,7 @@ public class BillingInfo {
 			DBConnection.close(con, rs, st);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
@@ -55,9 +57,15 @@ public class BillingInfo {
 				+ expirationDate + ", security_Code=" + security_Code + ", billing_Address=" + billing_Address + "]";
 	}
 
+	
 
-
-
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public int getBilling_ID() {
 		return billing_ID;
 	}
@@ -99,14 +107,36 @@ public class BillingInfo {
 		this.billing_Address = billing_Address;
 	}
 	
-	public void addBillingInfoToDB(int user_ID, 
-			String card_Number, String expirationDate,
-			int security_Code, String billing_Address){
-		//TODO
+	public void addBillingInfoToDB(){
+		try {
+			Connection con = DBConnection.getConnection();
+
+			String query = "insert into billing_info(user_id, card_number, expiration_date, security_code, billing_address)" 
+					+ "VALUES( " + user.getUser_id() + ", '" + card_Number + "', '" + expirationDate + "', " + security_Code + ", '" 
+					+ billing_Address + "');"; 
+					 
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+
+			DBConnection.close(con, null, st);
+
+		} catch (Exception e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+		}
 	}
 	
 	public void deleteBillingInfoFromDB(){
-		//TODO
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "delete from billing_info where billing_id = " + billing_ID + ";";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+
+			DBConnection.close(con, null, st);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static ArrayList<BillingInfo> getBillingInfo(int userId){

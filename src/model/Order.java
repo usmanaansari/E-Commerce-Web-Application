@@ -44,7 +44,7 @@ public class Order {
 			}
 			DBConnection.close(con, rs, st);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
@@ -116,7 +116,7 @@ public class Order {
 	
 	
 	public static ArrayList<Order> getOrdersForUser(int userID){
-		//TODO query db order_items and return all orders for this customer (will return empty list if user is not customer)
+		
 		ArrayList<Order> orders = null;
 		return orders;
 	}

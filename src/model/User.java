@@ -68,7 +68,7 @@ public class User {
 			DBConnection.close(con, rs, st);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 

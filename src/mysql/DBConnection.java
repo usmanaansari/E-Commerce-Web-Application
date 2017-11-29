@@ -37,7 +37,7 @@ public class DBConnection {
 			if(rs != null) rs.close();
 			if(st != null) st.close();
 		} catch (SQLException e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
     }
 }

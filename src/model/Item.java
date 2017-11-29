@@ -38,7 +38,7 @@ public class Item {
 			seller = new User(rs.getInt("seller_id"));
 			DBConnection.close(con, rs, st);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
@@ -249,7 +249,7 @@ public class Item {
 	}
 	
 	public static ArrayList<Item> getCartItems(int userID){
-		//TODO query db cart items and return all items for this customer (will return empty list if user is not customer)
+		
 		ArrayList<Item> items = new ArrayList<Item>();
 		
 		try {
@@ -270,7 +270,7 @@ public class Item {
 	}
 	
 	public static ArrayList<Item> getSellerItems(int userID){
-		//TODO query db seller_items and return all items for this seller (will return empty list if user is not seller)
+		
 		
 		ArrayList<Item> items = new ArrayList<Item>();
 		
@@ -300,7 +300,7 @@ public class Item {
 	}
 	
 	public static ArrayList<Item> getOrderItems(int orderID){
-		//TODO query db order_items and return all items for this order
+		
 		ArrayList<Item> items = new ArrayList<Item>();
 		
 		try {
