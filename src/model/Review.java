@@ -114,7 +114,7 @@ public class Review {
 		}
 	}
 	
-	public void deleteFromDB() {
+	public void deleteReviewFromDB() {
 		try {
 			Connection con = DBConnection.getConnection();
 			String query = "delete from review where review_id = " + reviewID + ";";

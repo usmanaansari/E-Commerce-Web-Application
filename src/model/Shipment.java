@@ -1,5 +1,13 @@
 package model;
 
+import java.sql.Connection;
+
+import mysql.DBConnection;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
 public class Shipment {
 	private float trackingNumber;
 	private Order order;
@@ -11,7 +19,33 @@ public class Shipment {
 	public Shipment(int orderID){ //we should make order id a primary key for shipment in the db
 		//there shouldnt be multiple orders per shipment
 		
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "select * from shipment where order_id = " + orderID + ";";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			while (rs.next()) {
+
+				trackingNumber = rs.getFloat("tracking_number");
+				customer = new User(rs.getInt("customer_id")); 
+				order = new Order(rs.getInt("order_id"));
+				returnAddress = rs.getString("returnAddress");
+				carrier = rs.getString("carrier");
+				charge = rs.getInt("charge");
+				
+				
+				
+			}
+			DBConnection.close(con, rs, st);
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
+	public Shipment() {}
 	
 	public float getTrackingNumber() {
 		return trackingNumber;
@@ -50,6 +84,30 @@ public class Shipment {
 		this.customer = customer;
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "Shipment [trackingNumber=" + trackingNumber + ", order=" + order + ", returnAddress=" + returnAddress
+				+ ", carrier=" + carrier + ", charge=" + charge + "]";
+	}
+	public void addShipmentToDB() {
+		try {
+			Connection con = DBConnection.getConnection();
+
+			String query = "insert into shipment(tracking_number, order_id, returnaddress, carrier, charge, customer_id)" 
+					+ "VALUES( " + trackingNumber + ", " + order.getOrder_ID() + ", '"+returnAddress + 
+					"', '"+ carrier +"', " + charge + ", " + customer.getUser_id() + ");"; 
+					 
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+
+			DBConnection.close(con, null, st);
+
+		} catch (Exception e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+		}
+	}
 	
 	
 	

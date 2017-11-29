@@ -34,9 +34,9 @@ public class Order {
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 
-			if (rs.next()) {
+			while (rs.next()) {
 				this.order_ID = rs.getInt("order_ID");
-				this.customer = new User(rs.getInt("customerID")); 
+				this.customer = new User(rs.getInt("customer_id")); 
 				this.order_date = rs.getDate("order_date");
 				this.order_status = rs.getString("order_status");
 				this.total = rs.getBigDecimal("total");

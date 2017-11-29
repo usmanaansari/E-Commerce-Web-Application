@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class BillingInfo {
 	private int billing_ID;
 	private User user;
 	private String card_Number;
-	private String expirationDate;
+	private Date expirationDate;
 	private int security_Code;
 	private String billing_Address;
 	
@@ -25,18 +26,19 @@ public class BillingInfo {
 		Connection con;
 		try {
 			con = DBConnection.getConnection();
-			String query = "select * from item where billing_id = " + billing_ID + ";";
+			String query = "select * from billing_info where billing_id = " + billing_ID + ";";
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			
 			//we need to remove customer_id from db and add user_id
-			rs.getInt("billing_id");
-			rs.getInt("user_id");
-			rs.getInt("card_number");
-			rs.getDate("expiration_date");
-			rs.getInt("security_code");
-			rs.getString("billing_address");
-			
+			while(rs.next()) {
+				user = new User(rs.getInt("customer_id"));
+				card_Number = rs.getString("card_number");
+				expirationDate = rs.getDate("expiration_date");
+				security_Code = rs.getInt("security_code");
+				billing_Address = rs.getString("billing_address");
+			}
+			DBConnection.close(con, rs, st);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -44,17 +46,17 @@ public class BillingInfo {
 		}
 	}
 	
-	public BillingInfo(int billing_ID, int user_ID, 
-			String card_Number, String expirationDate,
-			int security_Code, String billing_Address) {
-		
-		this.billing_ID = billing_ID;
-		this.card_Number = card_Number;
-		this.expirationDate = expirationDate;
-		this.security_Code = security_Code;
-		this.billing_Address = billing_Address;
-		
+	
+	
+
+	@Override
+	public String toString() {
+		return "BillingInfo [billing_ID=" + billing_ID + ", card_Number=" + card_Number + ", expirationDate="
+				+ expirationDate + ", security_Code=" + security_Code + ", billing_Address=" + billing_Address + "]";
 	}
+
+
+
 
 	public int getBilling_ID() {
 		return billing_ID;
@@ -73,11 +75,11 @@ public class BillingInfo {
 		this.card_Number = card_Number;
 	}
 
-	public String getExpirationDate() {
+	public Date getExpirationDate() {
 		return expirationDate;
 	}
 
-	public void setExpirationDate(String expirationDate) {
+	public void setExpirationDate(Date expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 
