@@ -48,18 +48,15 @@ public class BillingInfo {
 		}
 	}
 	
-	
-	
+		
 
+	
 	@Override
 	public String toString() {
-		return "BillingInfo [billing_ID=" + billing_ID + ", card_Number=" + card_Number + ", expirationDate="
-				+ expirationDate + ", security_Code=" + security_Code + ", billing_Address=" + billing_Address + "]";
+		return "BillingInfo [billing_ID=" + billing_ID + ", user=" + user + ", card_Number=" + card_Number
+				+ ", expirationDate=" + expirationDate + ", security_Code=" + security_Code + ", billing_Address="
+				+ billing_Address + "]";
 	}
-
-	
-
-	
 	public User getUser() {
 		return user;
 	}
@@ -139,10 +136,47 @@ public class BillingInfo {
 		}
 	}
 	
+	public void updateBillingInfo() {
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "update billing_info set card_number = '" + card_Number + "', expiration_date = '" + expirationDate + "',"
+					+ "security_code = " + security_Code + ", billing_address = '" + billing_Address + "', "
+							+ "user_id = " + user.getUser_id() + " where billing_id = " + billing_ID + ";";
+				;
+			
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+
+			DBConnection.close(con, null, st);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static ArrayList<BillingInfo> getBillingInfo(int userId){
-		//TODO query db billing_info and return all billing info for this user
-		ArrayList<BillingInfo> billingInfo = null;
-		return billingInfo;
+		ArrayList<BillingInfo> billingInfos = new ArrayList<BillingInfo>();
+		
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "select * from billing_info where user_id = '" + userId + "';";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			
+			while(rs.next()) {
+				BillingInfo b = new BillingInfo();
+				b.billing_ID = rs.getInt("billing_id");
+				b.user = new User(rs.getInt("user_id"));
+				b.card_Number = rs.getString("card_number");
+				b.expirationDate = rs.getDate("expiration_date");
+				b.security_Code = rs.getInt("security_code");
+				b.billing_Address = rs.getString("billing_address");
+				
+				billingInfos.add(b);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return billingInfos;
 	}
 	
 }
