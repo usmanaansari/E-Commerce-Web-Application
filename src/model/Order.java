@@ -25,6 +25,7 @@ public class Order {
 		this.order_status = order_status;
 		this.total = total;
 	}
+	public Order() {}
 	
 	public Order(int orderID) {
 		Connection con;
@@ -49,6 +50,12 @@ public class Order {
 		}
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "Order [order_ID=" + order_ID + ", customer=" + customer + ", order_status=" + order_status + ", total="
+				+ total + ", order_date=" + order_date + "]";
+	}
 	public int getOrder_ID() {
 		return order_ID;
 	}
@@ -90,7 +97,7 @@ public class Order {
 		this.order_date = order_date;
 	}
 	
-	public void addOrderToDB(int customer_ID, int total, String order_date){
+	public void addOrderToDB(){
 		String order_status = "processed";
 		try {
 			Connection con = DBConnection.getConnection();
@@ -111,13 +118,42 @@ public class Order {
 	}
 	
 	public void removeOrderFromDB(){
-		//TODO
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "delete from orders where order_id = " + order_ID + ";";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			
+			DBConnection.close(con, null, st);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
 	public static ArrayList<Order> getOrdersForUser(int userID){
 		
-		ArrayList<Order> orders = null;
+		ArrayList<Order> orders = new ArrayList<Order>();
+		
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "select * from orders where customer_id = " + userID + ";";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			
+			while(rs.next()) {
+				Order o = new Order();
+				o.customer = new User(userID);
+				o.order_date = rs.getDate("order_date");
+				o.order_ID = rs.getInt("order_id");
+				o.order_status = rs.getString("order_status");
+				o.total = rs.getBigDecimal("total");
+				orders.add(o);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return orders;
 	}
 	
