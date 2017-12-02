@@ -109,6 +109,28 @@ public class Shipment {
 		}
 	}
 	
+	public static Shipment getShipmentForOrder(int order_id) {
+		Shipment s = new Shipment();
+		try {
+			Connection con = DBConnection.getConnection();
+			Statement st = con.createStatement();
+			String query = "select * from shipment where order_id = " + order_id + ";";
+			ResultSet rs = st.executeQuery(query);
+			
+			if(rs.next()) {
+				s.carrier = rs.getString("carrier");
+				s.charge = rs.getInt("charge");
+				s.customer = new User(rs.getInt("customer_id"));
+				s.returnAddress = rs.getString("returnaddress");
+				s.order = new Order(order_id);
+				s.trackingNumber = rs.getFloat("tracking_number");
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
 	
 	
 }
