@@ -5,9 +5,16 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Footer</title>
 </head>
 <body>
 
+<!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; KRISUSAT 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
 </body>
 </html>
