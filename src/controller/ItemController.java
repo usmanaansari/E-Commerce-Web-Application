@@ -37,10 +37,22 @@ public class ItemController extends HttpServlet {
 			break;
 		case "updateItemBySeller": updateItemBySeller(request, response);
 			break;
+		case "searchByDept": searchByDept(request, response);
+			break;
 		case "getItem": getItem(request, response);
 
 		}
 		
+		
+	}
+
+	private void searchByDept(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String dept = (String) request.getAttribute("dept");
+		ArrayList<Item> items = Item.searchItemsByDept(dept);
+		request.setAttribute("allItems", items);
+		System.out.println(items);
+		RequestDispatcher dispatch = request.getRequestDispatcher("/index.jsp");
+		dispatch.forward(request, response);
 		
 	}
 
