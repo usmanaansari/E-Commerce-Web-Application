@@ -8,7 +8,7 @@
 </head>
 <body>
 	<form action="LoginController" method="get">
-		Enter username : <input type="text" name="username"> <BR>
+		E-Mail : <input type="text" name="email"> <BR>
 		Enter password : <input type="password" name="password"> <BR>
 		<input type="submit" />
 	</form>

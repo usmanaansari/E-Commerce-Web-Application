@@ -24,16 +24,17 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
  
-		String username = request.getParameter("username");
+		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		RequestDispatcher rd = null;
  
 		
-		boolean result = Authenticator.authenticate(username, password);
+		boolean result = Authenticator.authenticate(email, password);
 		
 		if (result) {
 			rd = request.getRequestDispatcher("ItemController");
-			User user = new User(username, password);
+			User user = new User(email);
+			System.out.println(user);
 			request.setAttribute("user", user);
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);

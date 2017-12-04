@@ -163,6 +163,19 @@ public class Item {
 		}
 	}
 	
+	public void addItemToCart(int userId) {
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "insert into cart_items(customer_id, item_id) values(" + userId + ", " + itemId + ");";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			
+			DBConnection.close(con, null, st);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static ArrayList<Item> getAllItems(){
 		ArrayList<Item> items = new ArrayList<Item>();
 		
@@ -319,6 +332,8 @@ public class Item {
 		}
 		return items;
 	}
+	
+	
 
 	
 	

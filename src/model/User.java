@@ -19,9 +19,40 @@ public class User {
 	private String middle_name = "";
 	private String userAddress;
 
-	public User(String userEmail, String user_password) {
+	public User(String userEmail) {
 		this.userEmail = userEmail;
-		this.user_Password = user_password;
+
+		Connection con;
+		ResultSet rs;
+		Statement st = null;
+		try {
+			con = DBConnection.getConnection();
+			String query = "select * from users where user_email = '" + userEmail + "';";
+			st = con.createStatement();
+			rs = st.executeQuery(query);
+
+			if (rs.next()) {
+				this.user_id = rs.getInt("user_id");
+				this.user_Password = rs.getString("user_password");
+				this.first_name = rs.getString("user_firstname");
+				this.middle_name = rs.getString("user_middlename");
+				this.last_name = rs.getString("user_lastname");
+				this.userAddress = rs.getString("user_address");
+
+				if (isCustomer(user_id))
+					accountType = "customer";
+				else if (isSeller(user_id))
+					accountType = "seller";
+				else
+					accountType = "employee";
+			}
+
+			DBConnection.close(con, rs, st);
+
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 	}
 	
 	public User(String email, String password, String account, String firstName, String lastName,

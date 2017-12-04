@@ -46,7 +46,6 @@ public class ItemController extends HttpServlet {
 
 	private void getItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Item item = new Item(Integer.parseInt(request.getParameter("itemId")));
-		System.out.println(item);
 		request.setAttribute("item", item);
 		RequestDispatcher dispatch = request.getRequestDispatcher("/item.jsp");
 		dispatch.forward(request, response);

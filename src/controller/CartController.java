@@ -1,11 +1,15 @@
 package controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.*;
 
 /**
  * Servlet implementation class CartController
@@ -25,11 +29,11 @@ public class CartController extends HttpServlet {
 		switch(command) { //check the command and route accordingly
 		case "listCartItems": listCartItems(request, response);
 			break;
-		case "addItemToCart": addItemToCart(request, response);
+		case "addToCart": addToCart(request, response);
 			break;
-		case "deleteItemFromCart": deleteItemFromCart(request, response);
+		case "deleteFromCart": deleteItemFromCart(request, response);
 			break;
-	
+		default: listCartItems(request, response);
 
 		}
 	}
@@ -41,8 +45,14 @@ public class CartController extends HttpServlet {
 	}
 
 	//adds passed item to cart of current user
-	private void addItemToCart(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void addToCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Item item = new Item(Integer.parseInt(request.getParameter("itemId")));
+		int userId = ((User)request.getSession().getAttribute("user")).getUser_id();
+		item.addItemToCart(userId);
+		request.setAttribute("item", item);
+
+		RequestDispatcher dispatch = request.getRequestDispatcher("/item.jsp");
+		dispatch.forward(request, response);
 		
 	}
 
