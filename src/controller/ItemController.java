@@ -26,33 +26,46 @@ public class ItemController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String command = request.getParameter("command");
-		if(command == null) command = "list"; //use list as default command
+		if(command == null) command = "listItems"; //use list as default command
 		
 		switch(command) { //check the command and route accordingly
-		case "list": listItems(request, response);
+		case "listItems": listItems(request, response);
 			break;
-		case "add": addItem(request, response);
+		case "addItemBySeller": addItemBySeller(request, response);
 			break;
-		case "delete": deleteItem(request, response);
+		case "deleteItemBySeller": deleteItemBySeller(request, response);
 			break;
-		case "update": updateItem(request, response);
+		case "updateItemBySeller": updateItemBySeller(request, response);
 			break;
+		case "getItem": getItem(request, response);
+
 		}
 		
 		
 	}
 
-	private void updateItem(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void getItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Item item = new Item(Integer.parseInt(request.getParameter("itemId")));
+		System.out.println(item);
+		request.setAttribute("item", item);
+		RequestDispatcher dispatch = request.getRequestDispatcher("/item.jsp");
+		dispatch.forward(request, response);
 		
 	}
 
-	private void deleteItem(HttpServletRequest request, HttpServletResponse response) {
+	//updates the item using attributes passed in request, performed by seller
+	private void updateItemBySeller(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		
 	}
-
-	private void addItem(HttpServletRequest request, HttpServletResponse response) {
+	//deletes the item passed in request, performed by seller
+	private void deleteItemBySeller(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	//adds the item using attributes passed in request, performed by seller
+	private void addItemBySeller(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		
 	}
