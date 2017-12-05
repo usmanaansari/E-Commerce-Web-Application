@@ -39,10 +39,25 @@ public class ItemController extends HttpServlet {
 			break;
 		case "searchByDept": searchByDept(request, response);
 			break;
+		case "addReview": addReview(request, response);
 		case "getItem": getItem(request, response);
 
 		}
 		
+		
+	}
+
+	private void addReview(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String reviewDescr = request.getParameter("reviewDesc");
+		if(reviewDescr != null && !(reviewDescr.trim().equals(""))) {
+		int itemId = Integer.parseInt(request.getParameter("itemId"));
+		Review r = new Review();
+		r.setDescription(reviewDescr);
+		r.setCustomer(((User)request.getSession().getAttribute("user")));
+		r.setItem(new Item(itemId));
+		r.addReviewToDB();
+		getItem(request, response);
+		}
 		
 	}
 
@@ -58,7 +73,10 @@ public class ItemController extends HttpServlet {
 
 	private void getItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Item item = new Item(Integer.parseInt(request.getParameter("itemId")));
+		ArrayList<Review> reviews = Review.getReviews(item.getItemId());
 		request.setAttribute("item", item);
+		request.setAttribute("reviews", reviews);
+		System.out.println(reviews);
 		RequestDispatcher dispatch = request.getRequestDispatcher("/item.jsp");
 		dispatch.forward(request, response);
 		
