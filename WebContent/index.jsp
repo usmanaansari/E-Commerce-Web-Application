@@ -2,7 +2,8 @@
     pageEncoding="UTF-8" %>
     <%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ page  import="model.*" %>
-   
+
+<%@ page import="model.User"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,9 +25,19 @@
   </head>
 
   <body>
-
-    <%@include file="header.jsp"%>
-
+	<% if (session.getAttribute("users") == null){ %>
+	<%@include file="publicHeader.jsp"%>
+	<%}else if (((User)session.getAttribute("users")).getAccountType().equals("customer")){ %> 
+	<%@include file="customerHeader.jsp"%>
+	<%}else if (((User)session.getAttribute("users")).getAccountType().equals("seller")){%>
+	<%@include file="sellerHeader.jsp" %>
+	<%} else{ %>
+	<%@include file="employeeHeader.jsp"%>
+	<%} %>
+    
+	
+	
+	
     <!-- Page Content -->
     <div class="container">
 

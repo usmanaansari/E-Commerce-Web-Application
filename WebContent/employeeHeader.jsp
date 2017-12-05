@@ -20,33 +20,19 @@
     						</div><!-- /input-group -->
   					
           		</li>
-            <% if(session.getAttribute("users") == null){ %>
-            		<li class="nav-item">
-              <a class="nav-link" href= "${loginLink}" >Log In</a>
-            </li>
-            <% }else{ %>
-            		<li class="nav-item">
-              <a class="nav-link" href="#">Sign Out</a>
-            		</li>
-            		<li class="nav-item">
-              <a class="nav-link" href="#">My Profile</a>
-            		</li>
-          
-            <%}%>
             
-            <% if(session.getAttribute("users") == null){ %>
-            		<li class="nav-item">
-              <a class="nav-link" href= "${loginLink}" >Log In</a>
+            	<li class="nav-item">
+              <a class="nav-link" href= "${loginLink}" >Logout</a>
             </li>
-            <% }else{ %>
+            
             		<li class="nav-item">
-              <a class="nav-link" href="#">Sign Out</a>
+              <a class="nav-link" href="#">Database</a>
             		</li>
+            		
             		<li class="nav-item">
-              <a class="nav-link" href="#">My Profile</a>
+              <a class="nav-link" href="#">My Account</a>
             		</li>
           
-            <%}%>
 
           </ul>
         </div>
@@ -54,6 +40,3 @@
         		
       </div>
     </nav>
-
-
-
