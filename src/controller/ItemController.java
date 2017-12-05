@@ -40,6 +40,7 @@ public class ItemController extends HttpServlet {
 		case "searchByDept": searchByDept(request, response);
 			break;
 		case "addReview": addReview(request, response);
+			break;
 		case "getItem": getItem(request, response);
 
 		}
@@ -53,10 +54,12 @@ public class ItemController extends HttpServlet {
 		int itemId = Integer.parseInt(request.getParameter("itemId"));
 		Review r = new Review();
 		r.setDescription(reviewDescr);
-		r.setCustomer(((User)request.getSession().getAttribute("user")));
+		//r.setCustomer(((User)request.getSession().getAttribute("user")));
+		r.setCustomer(new User(124));
 		r.setItem(new Item(itemId));
 		r.addReviewToDB();
 		getItem(request, response);
+		
 		}
 		
 	}
