@@ -47,7 +47,7 @@ public class ItemController extends HttpServlet {
 	}
 
 	private void searchByDept(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String dept = (String) request.getAttribute("dept");
+		String dept = (String) request.getParameter("dept");
 		ArrayList<Item> items = Item.searchItemsByDept(dept);
 		request.setAttribute("allItems", items);
 		System.out.println(items);

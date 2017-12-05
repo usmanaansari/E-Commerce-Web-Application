@@ -37,7 +37,7 @@
           <div class="list-group">
             <a href="/CSE305/ItemController?command=searchByDept&dept=electronics" class="list-group-item">Electronics</a>
             <a href="/CSE305/ItemController?command=searchByDept&dept=books" class="list-group-item">Books</a>
-            <a href="/CSE305/ItemController?command=searchByDept&dept=clothes" class="list-group-item">Clothes 3</a>
+            <a href="/CSE305/ItemController?command=searchByDept&dept=clothes" class="list-group-item">Clothes</a>
           </div>
 
         </div>
