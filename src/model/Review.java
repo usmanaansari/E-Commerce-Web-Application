@@ -94,12 +94,14 @@ public class Review {
 		this.rating = rating;
 	}
 
+
+	
 	@Override
 	public String toString() {
-		return "Review [reviewID=" + reviewID + ", item=" + item + ", description=" + description + ", rating=" + rating
-				+ "]";
+		return "Review [reviewID=" + reviewID + ", customer=" + customer + ", description=" + description + ", rating="
+				+ rating + "]";
 	}
-	
+
 	public void addReviewToDB() {
 		try {
 			Connection con = DBConnection.getConnection();
