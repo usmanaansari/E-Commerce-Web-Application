@@ -62,6 +62,8 @@ public class CartController extends HttpServlet {
 		int userID = ((User)request.getSession().getAttribute("users")).getUser_id();
 		ArrayList<Item> items = Item.getCartItems(userID);
 		request.setAttribute("cartItems", items);
+		ArrayList<BillingInfo> billingInfo = BillingInfo.getBillingInfo(userID);
+		request.setAttribute("billingInfo", billingInfo);
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("/cart.jsp");
 		dispatch.forward(request, response);
