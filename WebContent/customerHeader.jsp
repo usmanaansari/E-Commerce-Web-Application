@@ -29,12 +29,24 @@
               <a class="nav-link" href="#">Cart</a>
             		</li>
             		
+            		
+            		
             		<li class="nav-item">
-              <a class="nav-link" href="#">My Account</a>
+              				 <div class="dropdown">
+ 							 <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   								 My Account
+ 								 </button>
+ 								 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+   								 <a class="dropdown-item" href="updateAccount.jsp">Update Account</a>
+   								 <a class="dropdown-item" href="UpdateBilling Info"></a>
+  							
+ 								 </div>
+							</div>
+              
+              
             		</li>
-          
-         
-           
+            		
+
 
           </ul>
         </div>
