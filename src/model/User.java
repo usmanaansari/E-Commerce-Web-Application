@@ -38,6 +38,7 @@ public class User {
 				this.middle_name = rs.getString("user_middlename");
 				this.last_name = rs.getString("user_lastname");
 				this.userAddress = rs.getString("user_address");
+				//this.accountType = rs.getString("account_type);
 
 				if (isCustomer(user_id))
 					accountType = "customer";
@@ -58,13 +59,49 @@ public class User {
 	public User(String email, String password, String account, String firstName, String lastName,
 			String middleName, String userAddress) {
 
-		userEmail = email;
-		user_Password = password;
-		accountType = account;
-		first_name = firstName;
-		last_name = lastName;
-		middle_name = middleName;
-		this.userAddress = userAddress;
+		Connection con;
+		ResultSet rs;
+		Statement st = null;
+		try {
+			con = DBConnection.getConnection();
+			String query = "insert into users (user_email, user_password, accountType,+"
+					+ "user_firstname, user_middlename, user_lastname, user_address) values(" + email + ", " + password +
+					", " + firstName + ", " + middleName + ", " + lastName + ", " + userAddress + ");";
+			st = con.createStatement();
+			rs = st.executeQuery(query);
+
+			if (rs.next()) {
+				this.user_id = rs.getInt("user_id");
+				this.user_Password = rs.getString("user_password");
+				this.first_name = rs.getString("user_firstname");
+				this.middle_name = rs.getString("user_middlename");
+				this.last_name = rs.getString("user_lastname");
+				this.userAddress = rs.getString("user_address");
+				this.accountType = rs.getString("accountType");
+
+				if (isCustomer(user_id))
+					accountType = "customer";
+				else if (isSeller(user_id))
+					accountType = "seller";
+				else
+					accountType = "employee";
+				
+				if(accountType == "customer"){
+					addUserToCustomer();
+				}
+				else if(accountType == "seller") {
+					addUserToSeller();
+				}
+				
+				
+			}
+
+			DBConnection.close(con, rs, st);
+
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 		
 	}
 
