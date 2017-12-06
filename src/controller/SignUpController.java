@@ -48,12 +48,11 @@ public class SignUpController extends HttpServlet {
 		
 			st = con.createStatement();
 			rs = st.executeQuery(query);
-			
-		
-		
+
+
 		if (!rs.next()) {
 			rd = request.getRequestDispatcher("ItemController");
-			User user = new User(email, password, accType, fName, mName, lName, address);
+			User user = new User(email,password,accType,fName,lName,mName,address);
 			user.addUserToDB();
 			System.out.println(user);
 			request.setAttribute("users", user);
