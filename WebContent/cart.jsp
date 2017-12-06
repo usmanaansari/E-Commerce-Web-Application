@@ -77,6 +77,7 @@
             		<input type="hidden" name="itemId" value="${item.itemId}" />
             		    <label for="exampleFormControlSelect1"> </label>
     					<select class="form-control" id="exampleFormControlSelect1">
+    					
       					<c:forEach var = "bInfo" items = "${billingInfo}">
       						<option> Card Number: ${bInfo.card_Number}
       						
