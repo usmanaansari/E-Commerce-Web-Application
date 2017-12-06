@@ -44,15 +44,14 @@ public class SignUpController extends HttpServlet {
 		String address = request.getParameter("address");
 
 		RequestDispatcher rd = null;
-		boolean result = false;
 		String query = "select * from users where user_email =" + "'" + email + "'" +  ";" ;
 		
 			st = con.createStatement();
 			rs = st.executeQuery(query);
-			result = rs.wasNull();
+			
 		
 		
-		if (result) {
+		if (!rs.next()) {
 			rd = request.getRequestDispatcher("ItemController");
 			User user = new User(email, password, accType, fName, mName, lName, address);
 			user.addUserToDB();
