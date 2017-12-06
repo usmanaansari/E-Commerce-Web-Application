@@ -16,17 +16,19 @@ public class Order {
 	private String order_status;
 	private BigDecimal total;
 	private Date order_date;
-	public Order(int order_ID, User customer, String order_status,
-			BigDecimal total, Date order_date) {
-		
+
+	public Order(int order_ID, User customer, String order_status, BigDecimal total, Date order_date) {
+
 		this.order_ID = order_ID;
 		this.customer = customer;
 		this.order_date = order_date;
 		this.order_status = order_status;
 		this.total = total;
 	}
-	public Order() {}
-	
+
+	public Order() {
+	}
+
 	public Order(int orderID) {
 		Connection con;
 		try {
@@ -37,25 +39,25 @@ public class Order {
 
 			while (rs.next()) {
 				this.order_ID = rs.getInt("order_ID");
-				this.customer = new User(rs.getInt("customer_id")); 
+				this.customer = new User(rs.getInt("customer_id"));
 				this.order_date = rs.getDate("order_date");
 				this.order_status = rs.getString("order_status");
 				this.total = rs.getBigDecimal("total");
-				
+
 			}
 			DBConnection.close(con, rs, st);
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "Order [order_ID=" + order_ID + ", customer=" + customer + ", order_status=" + order_status + ", total="
 				+ total + ", order_date=" + order_date + "]";
 	}
+
 	public int getOrder_ID() {
 		return order_ID;
 	}
@@ -63,7 +65,6 @@ public class Order {
 	public void setOrder_ID(int order_ID) {
 		this.order_ID = order_ID;
 	}
-
 
 	public User getCustomer() {
 		return customer;
@@ -96,15 +97,15 @@ public class Order {
 	public void setOrder_date(Date order_date) {
 		this.order_date = order_date;
 	}
-	
-	public void addOrderToDB(){
+
+	public void addOrderToDB() {
 		String order_status = "processed";
 		try {
 			Connection con = DBConnection.getConnection();
+			System.out.println(order_date);
+			String query = "insert into orders(order_date, order_status, total, customer_id)" + "VALUES( '" + order_date.toString()
+					+ "', ' " + order_status + "', " + total + ", " + customer.getUser_id() + ");";
 
-			String query = "insert into orders(order_date, order_status, total, customer)" 
-					+ "VALUES( " + order_date + ", ' " + order_status + "', "+total+", "+customer+");"; 
-					 
 			Statement st = con.createStatement();
 			st.executeUpdate(query);
 
@@ -117,31 +118,69 @@ public class Order {
 		}
 	}
 	
-	public void removeOrderFromDB(){
+	public void addOrderItem(int itemId) {
+
+		try {
+			Connection con = DBConnection.getConnection();
+
+			String query = "insert into order_items(order_id, item_id)" + "VALUES(" + order_ID
+					+ ", " + itemId + ");";
+
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+
+			DBConnection.close(con, null, st);
+
+		} catch (Exception e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+
+		}
+	}
+
+	public void removeOrderFromDB() {
 		try {
 			Connection con = DBConnection.getConnection();
 			String query = "delete from orders where order_id = " + order_ID + ";";
 			Statement st = con.createStatement();
 			st.executeUpdate(query);
-			
+
 			DBConnection.close(con, null, st);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	public static ArrayList<Order> getOrdersForUser(int userID){
-		
+
+	public static int getMaxOrderId() {
+		int max = 0;
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "select max(order_id) from orders;";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			if (rs.next()) {
+				max = rs.getInt(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return max;
+
+	}
+
+	public static ArrayList<Order> getOrdersForUser(int userID) {
+
 		ArrayList<Order> orders = new ArrayList<Order>();
-		
+
 		try {
 			Connection con = DBConnection.getConnection();
 			String query = "select * from orders where customer_id = " + userID + ";";
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				Order o = new Order();
 				o.customer = new User(userID);
 				o.order_date = rs.getDate("order_date");
@@ -150,11 +189,11 @@ public class Order {
 				o.total = rs.getBigDecimal("total");
 				orders.add(o);
 			}
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return orders;
 	}
-	
+
 }

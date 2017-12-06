@@ -29,6 +29,28 @@
 	<%} %>
 	
 	
+	<div>
+	
+		<h3> Update Account</h3>
+		
+		<form action="" method="GET">
+		
+			<input type="hidden" name="command" value="ADD"/>
+			
+				<table>
+					<tbody>
+					
+					
+					</tbody>
+				
+				</table>
+		
+		
+		</form>
+	
+	
+	</div>
+	
 	
 	
  <!-- Bootstrap core JavaScript -->

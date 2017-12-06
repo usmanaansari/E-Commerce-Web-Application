@@ -54,7 +54,7 @@
               Sold by ${item.seller.userEmail} <br>
               Quantity: ${item.quantity} <br>
               
-              <% if(session.getAttribute("user") != null){ %>
+              <% if(session.getAttribute("users") != null){ %>
             <form action="CartController" method="GET">
 				<input type="hidden" name="command" value="addToCart" />
 				<input type="hidden" name="itemId" value="${item.itemId}" />

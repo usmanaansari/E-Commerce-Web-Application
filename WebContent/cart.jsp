@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-        <%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="model.User"%>
 
 <!DOCTYPE html>
@@ -60,7 +60,7 @@
             
             <div class="card-body">
               <h3 class="card-title">${tempItem.itemName}</h3>
-              <h4>$ ${item.price}</h4>
+              <h4>$ ${tempItem.price}</h4>
               <p class="card-text">${tempItem.description }</p>
               Sold by ${tempItem.seller.userEmail} <br>
               Quantity: ${tempItem.quantity} <br>
@@ -70,14 +70,27 @@
           </div>
           </c:forEach>
           <!-- /.card -->
-          
-                      <form action="ItemController" method="GET">
-            <input type="hidden" name="command" value="addReview" />
-            <input type="hidden" name="itemId" value="${item.itemId}" />
+          <br>
+          <h3> Select Billing Info</h3>
+            <form action="CartController" method="GET">
+           		<input type="hidden" name="command" value="checkout" />
+            		<input type="hidden" name="itemId" value="${item.itemId}" />
+            		    <label for="exampleFormControlSelect1"> </label>
+    					<select class="form-control" id="exampleFormControlSelect1">
+      					<c:forEach var = "bInfo" items = "${billingInfo}">
+      						<option> Card Number: ${bInfo.card_Number}
+      						
+      						</option>
+      					</c:forEach>
+      					
+    					</select>
+    					<br>
       
-              <input type=submit class="btn btn-success" value ="Checkout">
-              </form>
-          
+           		<input type=submit class="btn btn-success" value ="Checkout">
+            </form>
+          <br>
+          <br>
+          <br>
 
         </div>
         <!-- /.col-lg-9 -->

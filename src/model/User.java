@@ -1,10 +1,13 @@
 package model;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import mysql.DBConnection;
 
@@ -264,6 +267,49 @@ public class User {
 			e.printStackTrace();
 		
 		}
+	}
+	public void placeOrder(int billingId) {
+		ArrayList<Item> cartItems = Item.getCartItems(user_id);
+		Order order = new Order();
+		order.setCustomer(this);
+		order.setOrder_date(new Date(Calendar.getInstance().getTime().getTime()));
+		BigDecimal total = new BigDecimal(0);
+	
+		
+		
+		
+		for(Item item: cartItems) {
+			item.deleteItemFromCart(user_id);
+			total = total.add(item.getPrice());
+			System.out.println(item.getPrice());
+			Payment p = new Payment();
+			p.setAmount(item.getPrice());
+			p.setBillingInfo(new BillingInfo(billingId));
+			p.setCustomer(this);
+			p.setPaymentType("credit card");
+			p.setSeller(item.getSeller());
+			p.addPaymentToDB();
+			
+		}
+		System.out.println(total);
+		order.setTotal(total);
+		order.addOrderToDB();
+		order.setOrder_ID(Order.getMaxOrderId());
+		
+		for(Item item: cartItems) {
+			order.addOrderItem(item.getItemId());
+		}
+		
+		Shipment s = new Shipment();
+		s.setCarrier("UPS");
+		s.setCharge(10);
+		s.setCustomer(this);
+		s.setReturnAddress("Shop headquarters");
+		s.setTrackingNumber((float) Math.random()*1000000);
+		s.setOrder(order);
+		s.addShipmentToDB();
+		
+		
 	}
 	
 	public void addUserIdToObject() {
