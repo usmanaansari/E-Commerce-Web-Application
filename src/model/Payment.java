@@ -119,6 +119,7 @@ public class Payment {
 		}
 	}
 	
+	
 	public static ArrayList<Payment> getPayments(int userID){
 		 
 		ArrayList<Payment> payments = null;

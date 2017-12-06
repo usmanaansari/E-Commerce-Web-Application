@@ -39,7 +39,7 @@
  								 </button>
  								 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
    								 <a class="dropdown-item" href="updateAccount.jsp">Update Account</a>
-   								 <a class="dropdown-item" href="UpdateBilling Info"></a>
+   								 <a class="dropdown-item" href="updateBillinginfo.jsp">Update Billing Info</a>
   							
  								 </div>
 							</div>

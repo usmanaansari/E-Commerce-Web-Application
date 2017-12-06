@@ -1,6 +1,8 @@
 
 <c:url var="loginLink" value="/login.jsp">
 -					</c:url>
+<c:url var="signupLink" value="/signup.jsp">
+-					</c:url>
 		
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -23,6 +25,11 @@
             		<li class="nav-item">
               <a class="nav-link" href= "${loginLink}" >Login</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href= "${signupLink}" >Sign Up</a>
+            </li>
+
+
             
   
 
