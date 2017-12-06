@@ -1,5 +1,6 @@
 
-<c:url var="loginLink" value="/login.jsp">
+<c:url var="logoutLink" value="LoginController">
+<c:param name="logOut" value="true" />
 -					</c:url>
 		
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -22,7 +23,7 @@
           		</li>
             
             	<li class="nav-item">
-              <a class="nav-link" href= "${loginLink}" >Logout</a>
+              <a class="nav-link" href= "${logoutLink}" >Logout</a>
             </li>
             
             		<li class="nav-item">
