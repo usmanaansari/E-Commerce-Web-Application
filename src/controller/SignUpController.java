@@ -52,7 +52,7 @@ public class SignUpController extends HttpServlet {
 
 		if (!rs.next()) {
 			rd = request.getRequestDispatcher("ItemController");
-			User user = new User(email);
+			User user = new User(email,password,accType,fName,lName,mName,address);
 			user.addUserToDB();
 			System.out.println(user);
 			request.setAttribute("users", user);
