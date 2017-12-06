@@ -176,6 +176,19 @@ public class Item {
 		}
 	}
 	
+	public void deleteItemFromCart(int userId) {
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "delete from cart_items where customer_id = " + userId + " and item_id = " + itemId + ";";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			
+			DBConnection.close(con, null, st);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static ArrayList<Item> getAllItems(){
 		ArrayList<Item> items = new ArrayList<Item>();
 		

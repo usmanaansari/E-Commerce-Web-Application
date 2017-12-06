@@ -280,7 +280,8 @@ public class User {
 		
 		for(Item item: cartItems) {
 			item.deleteItemFromCart(user_id);
-			total.add(item.getPrice());
+			total = total.add(item.getPrice());
+			System.out.println(item.getPrice());
 			Payment p = new Payment();
 			p.setAmount(item.getPrice());
 			p.setBillingInfo(new BillingInfo(billingId));
@@ -290,6 +291,7 @@ public class User {
 			p.addPaymentToDB();
 			
 		}
+		System.out.println(total);
 		order.setTotal(total);
 		order.addOrderToDB();
 		order.setOrder_ID(Order.getMaxOrderId());

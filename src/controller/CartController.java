@@ -48,7 +48,7 @@ public class CartController extends HttpServlet {
 	//adds passed item to cart of current user
 	private void addToCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Item item = new Item(Integer.parseInt(request.getParameter("itemId")));
-		int userId = ((User)request.getSession().getAttribute("user")).getUser_id();
+		int userId = ((User)request.getSession().getAttribute("users")).getUser_id();
 		item.addItemToCart(userId);
 		request.setAttribute("item", item);
 
