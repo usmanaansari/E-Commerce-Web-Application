@@ -34,6 +34,7 @@ public class SignUpController extends HttpServlet {
 
 		RequestDispatcher rd = null;
  	
+		
 		boolean result = Authenticator.authenticate(email, password);
 		
 		if (result) {

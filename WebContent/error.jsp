@@ -6,7 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/login.css" rel="stylesheet">
+
+<title>Error</title>
 </head>
 <body>
  <% if (session.getAttribute("users") == null){ %>
@@ -21,5 +24,14 @@
 	
 <h1>Login failed, please try again. </h1>
  
+ 
+ 
+ 
+   <!-- Bootstrap core JavaScript -->
+	   <script src="vendor/jquery/jquery.min.js"></script>
+	  <script src="javaScript/login.js"></script>
+   
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
 </body>
 </html>

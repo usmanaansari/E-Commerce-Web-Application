@@ -1,12 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-  <%@ page import="model.User"%>
-  
-  
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="model.User"%>
+
+
+
 <html>
 <head>
+
+
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/login.css" rel="stylesheet">
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <title>Account</title>
 </head>
 <body>
@@ -24,7 +31,11 @@
 	
 	
 	
-
+ <!-- Bootstrap core JavaScript -->
+	   <script src="vendor/jquery/jquery.min.js"></script>
+	  <script src="javaScript/login.js"></script>
+   
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

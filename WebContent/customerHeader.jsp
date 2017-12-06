@@ -1,5 +1,6 @@
 
-<c:url var="loginLink" value="/login.jsp">
+<c:url var="logoutLink" value="LoginController">
+<c:param name="logOut" value="true" />
 -					</c:url>
 		
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -22,19 +23,31 @@
           		</li>
             
             		<li class="nav-item">
-              <a class="nav-link" href= "${loginLink}" >Logout</a>
+              <a class="nav-link" href= "${logoutLink}" >Logout</a>
             </li>
             
             		<li class="nav-item">
               <a class="nav-link" href="#">Cart</a>
             		</li>
             		
+            		
+            		
             		<li class="nav-item">
-              <a class="nav-link" href="#">My Account</a>
+              				 <div class="dropdown">
+ 							 <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   								 My Account
+ 								 </button>
+ 								 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+   								 <a class="dropdown-item" href="updateAccount.jsp">Update Account</a>
+   								 <a class="dropdown-item" href="updateBillinginfo.jsp">Update Billing Info</a>
+  							
+ 								 </div>
+							</div>
+              
+              
             		</li>
-          
-         
-           
+            		
+
 
           </ul>
         </div>

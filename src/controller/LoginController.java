@@ -23,6 +23,11 @@ public class LoginController extends HttpServlet {
  
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getParameter("logOut") != null && request.getParameter("logOut").equals("true")) {
+			logOut(request, response);
+			return;
+		}
  
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
@@ -35,12 +40,19 @@ public class LoginController extends HttpServlet {
 			rd = request.getRequestDispatcher("ItemController");
 			User user = new User(email);
 			System.out.println(user);
-			request.setAttribute("user", user);
+			request.setAttribute("users", user);
 			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
+			session.setAttribute("users", user);
 		} else {
 			rd = request.getRequestDispatcher("/error.jsp");
 		}
+		rd.forward(request, response);
+		
+	}
+
+	private void logOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getSession().invalidate();
+		RequestDispatcher rd = request.getRequestDispatcher("ItemController");
 		rd.forward(request, response);
 		
 	}

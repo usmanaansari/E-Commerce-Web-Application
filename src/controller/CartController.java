@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -57,9 +58,13 @@ public class CartController extends HttpServlet {
 	}
 
 	
-	private void listCartItems(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void listCartItems(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int userID = ((User)request.getSession().getAttribute("users")).getUser_id();
+		ArrayList<Item> items = Item.getCartItems(userID);
+		request.setAttribute("cartItems", items);
 		
+		RequestDispatcher dispatch = request.getRequestDispatcher("/cart.jsp");
+		dispatch.forward(request, response);
 	}
 
 
