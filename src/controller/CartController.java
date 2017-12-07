@@ -34,15 +34,30 @@ public class CartController extends HttpServlet {
 			break;
 		case "deleteFromCart": deleteItemFromCart(request, response);
 			break;
+		case "checkout": checkout(request, response);
+			break;
+		
 		default: listCartItems(request, response);
-
 		}
 	}
 
-	//deletes passed item from cart of current user
-	private void deleteItemFromCart(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void checkout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int billingId = Integer.parseInt(request.getParameter("billingId"));
+		User user = (User)request.getSession().getAttribute("users");
+		user.placeOrder(billingId);
+		listCartItems(request, response);
 		
+		
+	}
+
+	//deletes passed item from cart of current user
+	private void deleteItemFromCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int itemId = Integer.parseInt(request.getParameter("itemId"));
+		int userId = ((User)request.getSession().getAttribute("users")).getUser_id();
+		Item i = new Item(itemId);
+		i.deleteItemFromCart(userId);
+		System.out.println("HELLO");
+		listCartItems(request, response);
 	}
 
 	//adds passed item to cart of current user

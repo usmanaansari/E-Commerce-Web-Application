@@ -270,6 +270,7 @@ public class User {
 	}
 	public void placeOrder(int billingId) {
 		ArrayList<Item> cartItems = Item.getCartItems(user_id);
+		if(cartItems.isEmpty()) return;
 		Order order = new Order();
 		order.setCustomer(this);
 		order.setOrder_date(new Date(Calendar.getInstance().getTime().getTime()));
