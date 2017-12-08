@@ -399,6 +399,38 @@ private void addUserToEmployee() {
 		}
 	}
 	
+	public void updateUser() {
+		
+		try {
+			
+
+			
+			Connection con = DBConnection.getConnection();
+			
+			String query = "update users set user_firstname = \'" + first_name+"\'"+ ", user_middlename = \'" + middle_name+"\'"+
+			
+						", user_lastname = \'" + last_name+"\'" +", user_address = \'" + userAddress +"\'"+ ", user_email = \'"+ userEmail + "\'" +
+							" where user_id = "+ user_id ;
+
+			
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			
+
+			
+			
+			con.close();
+			
+
+		} 
+		
+		catch (Exception e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+		
+		}
+	}
+	
 	public void deleteUserFromDB(){
 		
 		deleteFromUsers();
