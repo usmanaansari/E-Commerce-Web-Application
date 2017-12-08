@@ -13,12 +13,12 @@
           <ul class="navbar-nav ml-auto">
           		<li class="nav-item">
           		
-    					<div class="input-group">
-     					<input type="text" class="form-control" placeholder="Search for...">
-      						<span class="input">
-        						<button class="btn btn-default" type="button">Search</button>
-     						 </span>
-    						</div><!-- /input-group -->
+			    		<form action="ItemController" class="form-control" method="get">
+        
+                			<input type="hidden" name="command" value="search" />
+           				<input type="text" name="search" placeholder="Search for..." />
+						<input type="submit" value="Search" class="add-student-button" />
+            			</form>
   					
           		</li>
             
