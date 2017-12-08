@@ -2,9 +2,12 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 
 import model.Authenticator;
+import model.BillingInfo;
 import model.User;
 import mysql.DBConnection;
 
@@ -42,7 +46,16 @@ public class SignUpController extends HttpServlet {
 		String lName = request.getParameter("lastName");
 		String accType = request.getParameter("accounttype");
 		String address = request.getParameter("address");
-
+		String cardNum = request.getParameter("card_number");
+		//int cardNumber = Integer.parseInt(cardNum);
+		String expDate = request.getParameter("expiration_date");
+		SimpleDateFormat format = new SimpleDateFormat("MMddyyyy");
+        java.util.Date parsed = format.parse(expDate);
+        java.sql.Date expirationDate = new java.sql.Date(parsed.getTime());
+		String billingAddr = request.getParameter("billing_address");
+		String secCode = request.getParameter("security_code");
+		int securityCode = Integer.parseInt(secCode);
+				
 		RequestDispatcher rd = null;
 		String query = "select * from users where user_email =" + "'" + email + "'" +  ";" ;
 		
@@ -53,7 +66,10 @@ public class SignUpController extends HttpServlet {
 		if (!rs.next()) {
 			rd = request.getRequestDispatcher("ItemController");
 			User user = new User(email,password,accType,fName,lName,mName,address);
+			BillingInfo bInfo = new BillingInfo(user, cardNum, expirationDate , securityCode, billingAddr);
+			
 			user.addUserToDB();
+			bInfo.addBillingInfoToDB();
 			System.out.println(user);
 			request.setAttribute("users", user);
 			HttpSession session = request.getSession();
