@@ -58,10 +58,12 @@
             
             <div class="card-body">
 		
-              <h3 class="card-title"> Payment ID: ${tempItem.paymentId}</h3> 
               
-              <h4>Amount</h4> <h5>$ ${tempItem.amount}</h5>
-              Customer ID: ${tempItem.customer.user_id}
+              <div style="clear: both"> 
+              	<h4>Amount: </h4> 
+              	<h5>$ ${tempItem.amount} </h5>
+              </div>
+              Customer: ${tempItem.customer.userEmail}<br>
               Payment Type: ${tempItem.paymentType} <br>
               <br>
              
