@@ -35,32 +35,50 @@
 				<h2>Enter Account Information</h2>
 				<hr class="colorgraph">
 				<div class="form-group">
-                    <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address">
+                    <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address"  required="required">
 				</div>
 				<div class="form-group">
-                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password"  required="required">
 				</div>
 				<div class="form-group">
-                    <input type="accounttype" name="accounttype" id="accounttype" class="form-control input-lg" placeholder="Account Type">
+                    <!--  <input type="accounttype" name="accounttype" id="accounttype" required="required" > -->
+					<select class="form-control" name="accounttype">
+                	<option value=>Choose an account type</option>
+                	<option value=>Customer</option>
+                	<option value=>Seller</option>
+                	<option value=>Employee</option>
+            </select>
 				</div>
 				<div class="form-group">
-                    <input type="firstName" name="firstName" id="firstName" class="form-control input-lg" placeholder="First Name">
+                    <input type="firstName" name="firstName" id="firstName" class="form-control input-lg" placeholder="First Name"  required="required">
 				</div>
 				<div class="form-group">
-                    <input type="midName" name="midName" id="midName" class="form-control input-lg" placeholder="Middle Name">
+                    <input type="midName" name="midName" id="midName" class="form-control input-lg" placeholder="Middle Name"  required="required">
 				</div>
 				<div class="form-group">
-                    <input type="lastName" name="lastName" id="lastName" class="form-control input-lg" placeholder="Last Name">
+                    <input type="lastName" name="lastName" id="lastName" class="form-control input-lg" placeholder="Last Name"  required="required">
 				</div>
 				<div class="form-group">
-                    <input type="address" name="address" id="address" class="form-control input-lg" placeholder="Address">
+                    <input type="address" name="address" id="address" class="form-control input-lg" placeholder="Address"  required="required">
+				</div>
+				<div class="form-group">
+                    <input type="card_number" name="card_number" id="card_number" class="form-control input-lg" placeholder="Card Number"  required="required">
+				</div>
+				<div class="form-group">
+                    <input type="expiration_date" name="expiration_date" id="expiration_date" class="form-control input-lg" placeholder="Expiration Date"  required="required">
+				</div>
+				<div class="form-group">
+                    <input type="security_code" name="security_code" id="security_code" class="form-control input-lg" placeholder="Security Code"  required="required">
+				</div>
+				<div class="form-group">
+                    <input type="billing_address" name="billing_address" id="billing_address" class="form-control input-lg" placeholder="Billing Address"  required="required">
 				</div>
 				
 				
 				<hr class="colorgraph">
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">
-                        <input type="submit" class="btn btn-lg btn-success btn-block" value="Create Account">
+                        <input type="submit" class="btn btn-xl btn-success btn-block" value="Create Account">
 					</div>
 					
 				</div>

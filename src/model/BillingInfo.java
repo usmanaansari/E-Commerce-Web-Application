@@ -48,6 +48,16 @@ public class BillingInfo {
 		}
 	}
 	
+	public BillingInfo(User user, String cardNum, Date expDate, int securCode, String billAddress) {
+		this.user = user;
+		this.card_Number = cardNum;
+		this.expirationDate = expDate;
+		this.security_Code = securCode;
+		this.billing_Address = billAddress;
+	}
+	
+	
+	
 		
 
 	
