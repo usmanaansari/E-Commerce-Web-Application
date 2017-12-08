@@ -1,22 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="model.User"%>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="css/signup.css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
 
-<title>Sign Up</title>
-</head>
-<body>
+  <head>
 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+    <title>My Cart </title>
 
-<div class="container">
-  
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/shop-item.css" rel="stylesheet">
+  </head>
+
+  <body>
 
 <% if (session.getAttribute("users") == null){ %>
 	<%@include file="publicHeader.jsp"%>
@@ -27,25 +33,49 @@
 	<%} else{ %>
 	<%@include file="employeeHeader.jsp" %>
 	<%} %>
-	
-<div class="row" style="margin-top:120px" id="center">
-    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-		<form role="form" action="OrderController" method="get">
-		
-		
-		
-		</form>
-	</div>
-</div>
+     <!--  <form action="OrderController" method="GET">
+           		<input type=submit class="btn btn-success" value = "See Order History"> 
+           	
+        		</form> -->
+    <!-- Page Content -->
+    <div class="col-lg-3">
 
-</div>
+          <h1 class="my-4">Order History</h1>
+          <div class="list-group">
+           
+          </div>
 
-	  <!-- Bootstrap core JavaScript -->
-	   <script src="vendor/jquery/jquery.min.js"></script>
-	  <script src="javaScript/signup.js"></script>
+        </div>
+    
+    <div class="container">
+    
+    <div class="row">
+    
+    <div class="col-lg-9">
    
+    <c:forEach var= "tempItem" items = "${orderList}" > 
+    
+    <div class="card mt-4">
+            
+            <div class="card-body">
+    		
+    		<h3 class="card-title">${tempItem.order_date}</h3>
+    		
+    		
+    		</div>
+    </div>
+    </c:forEach>
+    </div>
+    </div>
+	</div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    
-    
-</body>
+
+  </body>
+
 </html>
