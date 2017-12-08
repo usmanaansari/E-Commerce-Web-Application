@@ -194,12 +194,15 @@ public class User {
 		addUserToUser();
 		addUserIdToObject();
 		
-		if(accountType == "seller") {
+		if(accountType.equals("seller")) {
 			addUserToSeller();
 		}
 		
-		else {
+		else if(accountType.equals("customer")) {
 			addUserToCustomer();
+		}
+		else {
+			addUserToEmployee();
 		}
 	}
 	
@@ -272,6 +275,27 @@ public class User {
 		
 		}
 	}
+private void addUserToEmployee() {
+		
+		try {
+			
+			Connection con = DBConnection.getConnection();
+			
+			String query = "insert into employee(employee_ID)"
+					+ "VALUES("+user_id+");";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			
+			con.close();
+
+		} 
+		catch (Exception e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+		
+		}
+}
+
 	
 	public static ArrayList<User> getUsersForEmployee(){
 		ArrayList<User> users = new ArrayList<User>();

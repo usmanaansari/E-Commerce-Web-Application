@@ -61,7 +61,7 @@ public class SignUpController extends HttpServlet {
 		
 			st = con.createStatement();
 			rs = st.executeQuery(query);
-
+		System.out.print(accType);
 
 		if (!rs.next()) {
 			rd = request.getRequestDispatcher("ItemController");

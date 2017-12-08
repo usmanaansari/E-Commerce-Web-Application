@@ -41,13 +41,11 @@
                     <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password"  required="required">
 				</div>
 				<div class="form-group">
-                    <!--  <input type="accounttype" name="accounttype" id="accounttype" required="required" > -->
 					<select class="form-control" name="accounttype">
-                	<option value=>Choose an account type</option>
-                	<option value=>Customer</option>
-                	<option value=>Seller</option>
-                	<option value=>Employee</option>
-            </select>
+                	<option value="customer">customer</option>
+                	<option value="seller">seller</option>
+                	<option value="employee">employee</option>
+            	</select>
 				</div>
 				<div class="form-group">
                     <input type="firstName" name="firstName" id="firstName" class="form-control input-lg" placeholder="First Name"  required="required">
