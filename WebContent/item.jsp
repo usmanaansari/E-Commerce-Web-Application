@@ -46,7 +46,7 @@
         <div class="col-lg-9">
 
           <div class="card mt-4">
-            <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+            <img class="card-img-top img-fluid" src="${item.imageUrl}" alt="Item Image Not Found">
             <div class="card-body">
               <h3 class="card-title">${item.itemName}</h3>
               <h4>$ ${item.price}</h4>
