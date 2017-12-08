@@ -44,9 +44,9 @@
                     <!--  <input type="accounttype" name="accounttype" id="accounttype" required="required" > -->
 					<select class="form-control" name="accounttype">
                 	<option value=>Choose an account type</option>
-                	<option value=>Customer</option>
-                	<option value=>Seller</option>
-                	<option value=>Employee</option>
+                	<option value=>customer</option>
+                	<option value=>seller</option>
+                	<option value=>employee</option>
             </select>
 				</div>
 				<div class="form-group">
