@@ -18,71 +18,86 @@ import model.*;
 @WebServlet("/CartController")
 public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String command = request.getParameter("command");
-		if(command == null) command = "listCartItems"; //use list as default command
-		
-		switch(command) { //check the command and route accordingly
-		case "listCartItems": listCartItems(request, response);
+		if (command == null)
+			command = "listCartItems"; // use list as default command
+
+		switch (command) { // check the command and route accordingly
+		case "listCartItems":
+			listCartItems(request, response);
 			break;
-		case "addToCart": addToCart(request, response);
+		case "addToCart":
+			addToCart(request, response);
 			break;
-		case "deleteFromCart": deleteItemFromCart(request, response);
+		case "deleteFromCart":
+			deleteItemFromCart(request, response);
 			break;
-		case "checkout": checkout(request, response);
+		case "checkout":
+			checkout(request, response);
 			break;
-		
-		default: listCartItems(request, response);
+
+		default:
+			listCartItems(request, response);
 		}
 	}
 
-	private void checkout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void checkout(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int billingId = Integer.parseInt(request.getParameter("billingId"));
-		User user = (User)request.getSession().getAttribute("users");
-		user.placeOrder(billingId);
-		listCartItems(request, response);
-		
-		
+		if (request.getSession().getAttribute("users") != null) {
+			User user = (User) request.getSession().getAttribute("users");
+			user.placeOrder(billingId);
+			listCartItems(request, response);
+		}
+
 	}
 
-	//deletes passed item from cart of current user
-	private void deleteItemFromCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// deletes passed item from cart of current user
+	private void deleteItemFromCart(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int itemId = Integer.parseInt(request.getParameter("itemId"));
-		int userId = ((User)request.getSession().getAttribute("users")).getUser_id();
-		Item i = new Item(itemId);
-		i.deleteItemFromCart(userId);
-		listCartItems(request, response);
+		if (request.getSession().getAttribute("users") != null) {
+			int userId = ((User) request.getSession().getAttribute("users")).getUser_id();
+			Item i = new Item(itemId);
+			i.deleteItemFromCart(userId);
+			listCartItems(request, response);
+		}
 	}
 
-	//adds passed item to cart of current user
-	private void addToCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// adds passed item to cart of current user
+	private void addToCart(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Item item = new Item(Integer.parseInt(request.getParameter("itemId")));
-		int userId = ((User)request.getSession().getAttribute("users")).getUser_id();
-		item.addItemToCart(userId);
-		request.setAttribute("item", item);
+		if (request.getSession().getAttribute("users") != null) {
+			int userId = ((User) request.getSession().getAttribute("users")).getUser_id();
+			item.addItemToCart(userId);
+			request.setAttribute("item", item);
 
-		RequestDispatcher dispatch = request.getRequestDispatcher("/item.jsp");
-		dispatch.forward(request, response);
-		
+			RequestDispatcher dispatch = request.getRequestDispatcher("/item.jsp");
+			dispatch.forward(request, response);
+		}
+
 	}
 
-	
-	private void listCartItems(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userID = ((User)request.getSession().getAttribute("users")).getUser_id();
-		ArrayList<Item> items = Item.getCartItems(userID);
-		request.setAttribute("cartItems", items);
-		ArrayList<BillingInfo> billingInfo = BillingInfo.getBillingInfo(userID);
-		request.setAttribute("billingInfo", billingInfo);
-		
-		RequestDispatcher dispatch = request.getRequestDispatcher("/cart.jsp");
-		dispatch.forward(request, response);
+	private void listCartItems(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (request.getSession().getAttribute("users") != null) {
+			int userID = ((User) request.getSession().getAttribute("users")).getUser_id();
+			ArrayList<Item> items = Item.getCartItems(userID);
+			request.setAttribute("cartItems", items);
+			ArrayList<BillingInfo> billingInfo = BillingInfo.getBillingInfo(userID);
+			request.setAttribute("billingInfo", billingInfo);
+
+			RequestDispatcher dispatch = request.getRequestDispatcher("/cart.jsp");
+			dispatch.forward(request, response);
+		}
 	}
-
-
 
 }
