@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="model.User"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -27,12 +28,11 @@
 		<br></br>
 		<br></br>
 
-		<h3> Update Billing Info</h3>
 		
 		<!-- Page Content -->
     <div class="col-lg-3">
 
-          <h1 class="my-4">All Items</h1>
+          <h1 class="my-4">Update Billing Info</h1>
           <div class="list-group">
            
           </div>
@@ -55,13 +55,14 @@
             
             <div class="card-body">
 		
-              <h3 class="card-title">${tempItem.billing_ID}</h3> 
+             
               
-              <h4>$ ${tempItem.user.user_id}</h4>
-              Card Number: ${tempItem.card_Number}
+              <h4> Card Number: ${tempItem.card_Number}</h4>
+              
               <p class="card-text">Security Code: ${tempItem.security_Code }</p>
-              Billing Address ${tempItem.billing_Address} <br>
               Expiration Date: ${tempItem.expirationDate.toString()} <br>
+              Billing Address ${tempItem.billing_Address} <br>
+              
               <br>
               <form action="BillingInfoController" method="GET">
               	<input type="hidden" name="command" value="removeBill" />
