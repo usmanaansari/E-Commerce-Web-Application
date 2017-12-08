@@ -27,43 +27,64 @@
 		<br></br>
 		<br></br>
 
-		<h3> Update Account</h3>
+		<h3> Update Billing Info</h3>
 		
-		<form action="BillingInfoController" method="GET">
-		
-			
-				<table>
-					<tbody>
-					<tr>
-						<td> <label>Card Number:</label></td>
-						<td><input type="text" name="cardNumber"value="${THE_USER.first_name}" /> </td>
-					</tr>
-					
-					<tr>
-						<td> <label>Expiration Date:</label></td>
-						<td><input type="text" name="expirationDate"value="${THE_USER.middle_name}" /> </td>
-					</tr>
-					
-					<tr>
-						<td> <label>Security Code:</label></td>
-						<td><input type="text" name="securityCode" value="${THE_USER.last_name}" /> </td>
-					</tr>
+		<!-- Page Content -->
+    <div class="col-lg-3">
 
-					
-					<tr>
-						<td> <label>Billing Address:</label></td>
-						<td><input type="text" name="billingAddress" value="${THE_USER.userAddress}" /> </td>
-					</tr>
-					
-					
-				
-	
-					</tbody>
-				
-				</table>
+          <h1 class="my-4">All Items</h1>
+          <div class="list-group">
+           
+          </div>
+
+        </div>
+    
+    <div class="container">
+
+      <div class="row">
+
+      
+        <!-- /.col-lg-3 -->
+        
+
+        <div class="col-lg-9">
+        
+		<c:forEach var="tempItem" items="${Billing}" > 
+        	
+          <div class="card mt-4">
+            
+            <div class="card-body">
 		
-		<input type ="submit" value="Save" />
-		</form>
+              <h3 class="card-title">${tempItem.billing_ID}</h3> 
+              
+              <h4>$ ${tempItem.user.user_id}</h4>
+              Card Number: ${tempItem.card_Number}
+              <p class="card-text">Security Code: ${tempItem.security_Code }</p>
+              Billing Address ${tempItem.billing_Address} <br>
+              Expiration Date: ${tempItem.expirationDate.toString()} <br>
+              <br>
+              <form action="BillingInfoController" method="GET">
+              	<input type="hidden" name="command" value="removeBill" />
+              	<input type="hidden" name="billing_ID" value="${tempItem.billing_ID}" />
+           		<input type=submit class="btn btn-success" value = "Remove"> 
+           	
+        		</form>
+
+            </div>
+          
+          </div>
+          </c:forEach>
+          <!-- /.card -->
+          
+          <br>
+          <br>
+          <br>
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+      </div>
+      </div>
 	
 	
 	</div>

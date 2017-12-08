@@ -64,14 +64,10 @@ public class UserAccountController extends HttpServlet {
 	}
 	private void loadUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-
-		
-	
 		
 		req.setAttribute("THE_USER", user);
 		
 	
-		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/updateAccount.jsp");
 		
 	
