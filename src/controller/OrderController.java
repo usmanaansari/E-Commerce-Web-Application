@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.BillingInfo;
 import model.Item;
 import model.Order;
+import model.Shipment;
 import model.User;
 
 /**
@@ -34,10 +35,11 @@ public class OrderController extends HttpServlet {
 
 	public void listOrderItems(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userID = ((User)request.getSession().getAttribute("users")).getUser_id();
+		//int orderID = ((Order)request.getSession().getAttribute("orders")).getOrder_ID();
 		System.out.println(userID);
 		ArrayList<Order> orders =  Order.getOrdersForUser(userID);
 		request.setAttribute("orderList", orders);
-		
+		//Shipment ship = Shipment.getShipmentForOrder(orderID);
 		RequestDispatcher dispatch = request.getRequestDispatcher("/order.jsp");
 		dispatch.forward(request, response);
 	}

@@ -60,6 +60,8 @@
             <div class="card-body">
     		
     		<h3 class="card-title">${tempItem.order_date}</h3>
+    		Order Status: ${tempItem.order_status} <br>
+    		Total Price: ${tempItem.total} <br>
     		
     		
     		</div>
