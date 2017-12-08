@@ -109,6 +109,10 @@ public class User {
 
 	}
 
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String toString() {
 		return "User [userEmail=" + userEmail + ", user_id=" + user_id + ", accountType=" + accountType
@@ -290,6 +294,37 @@ private void addUserToEmployee() {
 			e.printStackTrace();
 		
 		}
+}
+
+	
+	public static ArrayList<User> getUsersForEmployee(){
+		ArrayList<User> users = new ArrayList<User>();
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "select * from users;";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			while(rs.next()) {
+				User u = new User(rs.getInt("user_id"));
+				if(isCustomer(rs.getInt("user_id"))) {
+					u.accountType = "customer";
+					users.add(u);
+				}
+				else if(isSeller(rs.getInt("user_id"))) {
+					u.accountType = "seller";
+					users.add(u);
+				}
+
+			}
+			DBConnection.close(con, rs, st);
+
+		} catch (Exception e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+			
+		}
+		return users;
 	}
 	public void placeOrder(int billingId) {
 		ArrayList<Item> cartItems = Item.getCartItems(user_id);

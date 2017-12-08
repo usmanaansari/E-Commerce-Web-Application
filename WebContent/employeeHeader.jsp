@@ -25,11 +25,18 @@
             	<li class="nav-item">
               <a class="nav-link" href= "${logoutLink}" >Logout</a>
             </li>
-            
-            		<li class="nav-item">
-              <a class="nav-link" href="#">Database</a>
+            	<li class = "nav-item">
+            	              <div class="dropdown">
+ 							 <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   								 Database
+ 								 </button>
+ 								 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+   								 <a class="dropdown-item" href="EmployeeController?command=listUsers">Edit Users</a>
+   								 <a class="dropdown-item" href="EmployeeController?command=listItems">Edit Items</a>
+  							
+ 								 </div>
+							</div>
             		</li>
-            		
             		<li class="nav-item">
               <a class="nav-link" href="#">My Account</a>
             		</li>

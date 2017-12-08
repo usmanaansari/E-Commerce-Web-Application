@@ -56,7 +56,6 @@ public class CartController extends HttpServlet {
 		int userId = ((User)request.getSession().getAttribute("users")).getUser_id();
 		Item i = new Item(itemId);
 		i.deleteItemFromCart(userId);
-		System.out.println("HELLO");
 		listCartItems(request, response);
 	}
 
