@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ page import="model.User"%>
+<%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page import="model.User"%>
+
 
 
 
@@ -16,8 +19,12 @@
 
 <title>Account</title>
 </head>
+
+
 <body>
 
+
+ 
 <% if (session.getAttribute("users") == null){ %>
 	<%@include file="publicHeader.jsp"%>
 	<%}else if (((User)session.getAttribute("users")).getAccountType().equals("customer")){ %> 
@@ -30,22 +37,49 @@
 	
 	
 	<div>
-	
+		<br></br>
+		<br></br>
+
 		<h3> Update Account</h3>
 		
-		<form action="" method="GET">
+		<form action="UserAccountController" method="GET">
 		
-			<input type="hidden" name="command" value="ADD"/>
 			
 				<table>
 					<tbody>
+					<tr>
+						<td> <label>First name:</label></td>
+						<td><input type="text" name="firstName"value="${THE_USER.first_name}" /> </td>
+					</tr>
+					
+					<tr>
+						<td> <label>Middle name:</label></td>
+						<td><input type="text" name="middleName"value="${THE_USER.middle_name}" /> </td>
+					</tr>
+					
+					<tr>
+						<td> <label>Last name:</label></td>
+						<td><input type="text" name="lastName" value="${THE_USER.last_name}" /> </td>
+					</tr>
+
+					
+					<tr>
+						<td> <label>Address:</label></td>
+						<td><input type="text" name="Address" value="${THE_USER.userAddress}" /> </td>
+					</tr>
 					
 					
+					<tr>
+						<td> <label>Email:</label></td>
+						<td><input type="text" name="Email" value="${THE_USER.userEmail}" /> </td>
+					</tr>
+
+	
 					</tbody>
 				
 				</table>
 		
-		
+		<input type ="submit" value="Save" />
 		</form>
 	
 	

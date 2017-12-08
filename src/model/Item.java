@@ -16,6 +16,7 @@ public class Item {
 	private BigDecimal price;
 	private String description;
 	private User seller;
+	private String imageUrl;
 
 	public Item(int itemId) {
 		this.itemId = itemId;
@@ -33,6 +34,7 @@ public class Item {
 				this.department = rs.getString("department");
 				this.price = rs.getBigDecimal("price");
 				this.description = rs.getString("description");
+				this.imageUrl = rs.getString("image_url");
 			}
 			
 			seller = new User(rs.getInt("seller_id"));
@@ -53,6 +55,14 @@ public class Item {
 		this.seller = new User(sellerID);
 	}
 
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
 	public int getItemId() {
 		return itemId;
@@ -120,9 +130,9 @@ public class Item {
 		try {
 			Connection con = DBConnection.getConnection();
 
-			String query = "insert into item(item_name, quantity, department, price, " + "description, seller_id)"
+			String query = "insert into item(item_name, quantity, department, price, " + "description, seller_id, image_url)"
 					+ "VALUES( '" + itemName + "', " + quantity + ", '" + department + "'," + price + ", '"
-					+ description + "', " + seller.getUser_id() + " );";
+					+ description + "', " + seller.getUser_id() + ",'" + imageUrl + " );";
 			Statement st = con.createStatement();
 			st.executeUpdate(query);
 
@@ -208,6 +218,7 @@ public class Item {
 				i.price = rs.getBigDecimal("price");
 				i.quantity = rs.getInt("quantity");
 				i.seller = new User(rs.getInt("seller_id"));
+				i.imageUrl = rs.getString("image_url");
 				
 				items.add(i);
 			}
@@ -236,6 +247,7 @@ public class Item {
 				i.price = rs.getBigDecimal("price");
 				i.quantity = rs.getInt("quantity");
 				i.seller = new User(rs.getInt("seller_id"));
+				i.imageUrl = rs.getString("image_url");
 				
 				items.add(i);
 			}
@@ -264,6 +276,7 @@ public class Item {
 				i.price = rs.getBigDecimal("price");
 				i.quantity = rs.getInt("quantity");
 				i.seller = new User(rs.getInt("seller_id"));
+				i.imageUrl = rs.getString("image_url");
 				
 				items.add(i);
 			}
@@ -315,6 +328,7 @@ public class Item {
 				i.price = rs.getBigDecimal("price");
 				i.quantity = rs.getInt("quantity");
 				i.seller = new User(rs.getInt("seller_id"));
+				i.imageUrl = rs.getString("image_url");
 				
 				items.add(i);
 				

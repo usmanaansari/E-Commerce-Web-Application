@@ -1,14 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="model.User"%>
+ 
+<%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<%@ page import="model.User"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="css/login.css" rel="stylesheet">
-<title>Update Billing Info</title>
+<title>My Payments</title>
+
+<!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/shop-item.css" rel="stylesheet">
+    
+    
 </head>
 <body>
 
@@ -23,16 +31,11 @@
 	<%} %>
 	
 	
-	<div>
-		<br></br>
-		<br></br>
-
-		<h3> Update Billing Info</h3>
-		
-		<!-- Page Content -->
+	
+	 <!-- Page Content -->
     <div class="col-lg-3">
 
-          <h1 class="my-4">All Items</h1>
+          <h1 class="my-4">My Payments</h1>
           <div class="list-group">
            
           </div>
@@ -49,26 +52,21 @@
 
         <div class="col-lg-9">
         
-		<c:forEach var="tempItem" items="${Billing}" > 
+		<c:forEach var="tempItem" items="${paymentList}" > 
         	
           <div class="card mt-4">
             
             <div class="card-body">
 		
-              <h3 class="card-title">${tempItem.billing_ID}</h3> 
               
-              <h4>$ ${tempItem.user.user_id}</h4>
-              Card Number: ${tempItem.card_Number}
-              <p class="card-text">Security Code: ${tempItem.security_Code }</p>
-              Billing Address ${tempItem.billing_Address} <br>
-              Expiration Date: ${tempItem.expirationDate.toString()} <br>
+              <div style="clear: both"> 
+              	<h4>Amount: </h4> 
+              	<h5>$ ${tempItem.amount} </h5>
+              </div>
+              Customer: ${tempItem.customer.userEmail}<br>
+              Payment Type: ${tempItem.paymentType} <br>
               <br>
-              <form action="BillingInfoController" method="GET">
-              	<input type="hidden" name="command" value="removeBill" />
-              	<input type="hidden" name="billing_ID" value="${tempItem.billing_ID}" />
-           		<input type=submit class="btn btn-success" value = "Remove"> 
-           	
-        		</form>
+             
 
             </div>
           
@@ -85,21 +83,21 @@
 
       </div>
       </div>
-	
-	
-	</div>
 
 
+    <!-- /.container -->
 
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
 
-   <!-- Bootstrap core JavaScript -->
-	   <script src="vendor/jquery/jquery.min.js"></script>
-	  <script src="javaScript/login.js"></script>
-   
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 </body>
-
-
-
-
 </html>

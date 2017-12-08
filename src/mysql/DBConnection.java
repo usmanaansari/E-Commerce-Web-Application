@@ -13,9 +13,9 @@ public class DBConnection {
 
     public static Connection getConnection() throws Exception {
     	Connection connect = null;
-    	String url = "jdbc:mysql://localhost/305project";
+    	String url = "jdbc:mysql://localhost/305";
     	String user = "root";
-    	String password = "";
+    	String password = "shinobi";
     	
         try {
             // This will load the MySQL driver, each DB has its own driver
