@@ -1,11 +1,20 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.BillingInfo;
+import model.Item;
+import model.Order;
+import model.Shipment;
+import model.User;
 
 /**
  * Servlet implementation class OrderController
@@ -13,15 +22,25 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/OrderController")
 public class OrderController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	public OrderController() {
+		super();
+	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		listOrderItems(request, response);
 	}
 
 
-
+	public void listOrderItems(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int userID = ((User)request.getSession().getAttribute("users")).getUser_id();
+		//int orderID = ((Order)request.getSession().getAttribute("orders")).getOrder_ID();
+		System.out.println(userID);
+		ArrayList<Order> orders =  Order.getOrdersForUser(userID);
+		request.setAttribute("orderList", orders);
+		//Shipment ship = Shipment.getShipmentForOrder(orderID);
+		RequestDispatcher dispatch = request.getRequestDispatcher("/order.jsp");
+		dispatch.forward(request, response);
+	}
 }
