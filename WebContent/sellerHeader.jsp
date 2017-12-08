@@ -32,7 +32,11 @@
             		</li>
             		
             		<li class="nav-item">
-              <a class="nav-link" href="#">My Account</a>
+              <a class="nav-link" href="UserAccountController">My Account</a>
+            		</li>
+            		
+            		<li class="nav-item">
+              <a class="nav-link" href="sellerPaymentsController">My Payments</a>
             		</li>
           
 

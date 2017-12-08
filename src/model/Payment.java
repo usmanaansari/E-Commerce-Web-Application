@@ -122,9 +122,41 @@ public class Payment {
 	
 	public static ArrayList<Payment> getPayments(int userID){
 		 
-		ArrayList<Payment> payments = null;
-		return payments;
-	}
+	
+
+			ArrayList<Payment> payments = new ArrayList<Payment>();
+
+			try {
+				Connection con = DBConnection.getConnection();
+				String query = "select * from payment where Seller_id = " + userID + ";";
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(query);
+
+				while (rs.next()) {
+					Payment p = new Payment();
+					
+					p.amount = rs.getBigDecimal("amount");
+					int customer_id = rs.getInt("Customer_ID");
+					User user = new User(customer_id);
+					p.customer = user;
+					p.paymentType = rs.getString("payment_type");
+					
+					int payment_id = rs.getInt("payment_id");
+					p.paymentId = payment_id;
+					String seller_id = rs.getString("Seller_ID");
+					
+					int sellerInt = Integer.parseInt(seller_id);
+					User seller = new User(sellerInt);
+					
+					payments.add(p);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return payments;
+		}
+
 	
 	
 }
