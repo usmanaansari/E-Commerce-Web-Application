@@ -42,9 +42,21 @@ public class ItemController extends HttpServlet {
 		case "addReview": addReview(request, response);
 			break;
 		case "getItem": getItem(request, response);
-
+			break;
+		case "search": search(request, response);
+			break;
 		}
 		
+		
+	}
+
+	private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String search = (String) request.getParameter("search");
+		ArrayList<Item> items = Item.searchItems(search);
+		request.setAttribute("allItems", items);
+		System.out.println(items);
+		RequestDispatcher dispatch = request.getRequestDispatcher("/index.jsp");
+		dispatch.forward(request, response);
 		
 	}
 
