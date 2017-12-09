@@ -28,8 +28,20 @@ public class OrderController extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String command = request.getParameter("command");
+		if(command == null)
+			command = "listOrderItems";
+		switch (command) {
+		case "listOrderItems":
+			listOrderItems(request,response);
+			break;
+		case "getOrderInfo":
+			getOrderInfo(request,response);
+			break;
+			}
+			
 		
-		listOrderItems(request, response);
+		//listOrderItems(request, response);
 	}
 
 
@@ -41,6 +53,17 @@ public class OrderController extends HttpServlet {
 		request.setAttribute("orderList", orders);
 		//Shipment ship = Shipment.getShipmentForOrder(orderID);
 		RequestDispatcher dispatch = request.getRequestDispatcher("/order.jsp");
+		dispatch.forward(request, response);
+	}
+	
+	public void getOrderInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Order order = new Order(Integer.parseInt(request.getParameter("orderID")));
+		request.setAttribute("order", order);
+		Shipment shipment = new Shipment(order.getOrder_ID());
+		request.setAttribute("shipment", shipment);
+		ArrayList<Item> orderItems = Item.getOrderItems(order.getOrder_ID());
+		request.setAttribute("orderItems", orderItems);
+		RequestDispatcher dispatch = request.getRequestDispatcher("/orderinfo.jsp");
 		dispatch.forward(request, response);
 	}
 }
