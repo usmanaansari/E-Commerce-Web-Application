@@ -80,7 +80,7 @@ public class CartController extends HttpServlet {
 			item.addItemToCart(userId);
 			request.setAttribute("item", item);
 
-			RequestDispatcher dispatch = request.getRequestDispatcher("/item.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("/ItemController");
 			dispatch.forward(request, response);
 		}
 

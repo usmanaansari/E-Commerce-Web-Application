@@ -32,7 +32,7 @@
 		<!-- Page Content -->
     <div class="col-lg-3">
 
-          <h1 class="my-4">Update Billing Info</h1>
+          <h1 class="my-4">Billing Info</h1>
           <div class="list-group">
            
           </div>
@@ -40,8 +40,10 @@
         </div>
     
     <div class="container">
-
+		<a href="addBillingInfo.jsp" class="btn btn-success" role="button">Add Billing Info</a>
       <div class="row">
+      
+	
 
       
         <!-- /.col-lg-3 -->

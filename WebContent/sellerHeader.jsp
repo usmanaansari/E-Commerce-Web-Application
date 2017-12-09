@@ -28,7 +28,7 @@
             </li>
             
             		<li class="nav-item">
-              <a class="nav-link" href="#">MY Items</a>
+              <a class="nav-link" href="/CSE305/ItemController?command=getSellerItems">MY Items</a>
             		</li>
             		
             		<li class="nav-item">

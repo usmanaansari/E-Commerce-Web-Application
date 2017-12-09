@@ -53,11 +53,11 @@
               Shipping Service: ${shipment.carrier}<br>
               Shipping Charge: $${shipment.charge}<br>
               Return Address: ${shipment.returnAddress}<br>
+              <br>
               
               <c:forEach var ="tempItem" items = "${orderItems}" >
-              Item Name: ${tempItem.itemName } <br>
+              <h4> Item Name: ${tempItem.itemName } </h4>
               Item Description: ${tempItem.description} <br>
-              Quantity: ${tempItem.quantity } <br>
               Price: ${tempItem.price } <br>
               Sold by: ${tempItem.seller.userEmail} <br>
               <br>

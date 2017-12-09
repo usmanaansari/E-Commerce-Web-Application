@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.*;
 import model.*;
 
@@ -40,8 +42,8 @@ public class ItemController extends HttpServlet {
 		case "deleteItemBySeller":
 			deleteItemBySeller(request, response);
 			break;
-		case "updateItemBySeller":
-			updateItemBySeller(request, response);
+		case "getSellerItems":
+			getSellerItems(request, response);
 			break;
 		case "searchByDept":
 			searchByDept(request, response);
@@ -55,7 +57,19 @@ public class ItemController extends HttpServlet {
 		case "search":
 			search(request, response);
 			break;
+		default:
+			listItems(request, response);
 		}
+
+	}
+
+	private void getSellerItems(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		User user = (User) request.getSession().getAttribute("users");
+		ArrayList<Item> items = Item.getSellerItems(user.getUser_id());
+		request.setAttribute("sellerItems", items);
+		RequestDispatcher dispatch = request.getRequestDispatcher("/sellerItems.jsp");
+		dispatch.forward(request, response);
 
 	}
 
@@ -74,10 +88,10 @@ public class ItemController extends HttpServlet {
 		String reviewDescr = request.getParameter("reviewDesc");
 		if (reviewDescr != null && !(reviewDescr.trim().equals(""))) {
 			int itemId = Integer.parseInt(request.getParameter("itemId"));
-			if (request.getSession().getAttribute("user") != null) {
+			if (request.getSession().getAttribute("users") != null) {
 				Review r = new Review();
 				r.setDescription(reviewDescr);
-				r.setCustomer(((User) request.getSession().getAttribute("user")));
+				r.setCustomer(((User) request.getSession().getAttribute("users")));
 				r.setItem(new Item(itemId));
 				r.addReviewToDB();
 				getItem(request, response);
@@ -110,21 +124,43 @@ public class ItemController extends HttpServlet {
 
 	}
 
-	// updates the item using attributes passed in request, performed by seller
-	private void updateItemBySeller(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-
-	}
-
 	// deletes the item passed in request, performed by seller
-	private void deleteItemBySeller(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void deleteItemBySeller(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int itemId = Integer.parseInt(request.getParameter("itemId"));
+		Item item = new Item(itemId);
+		item.deleteItemFromDB();
+		getSellerItems(request, response);
 
 	}
 
 	// adds the item using attributes passed in request, performed by seller
 	private void addItemBySeller(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+		try {
+			User user= ((User)request.getSession().getAttribute("users"));
+			String itemName = request.getParameter("itemName");
+			double pr = Double.parseDouble(request.getParameter("price"));
+			BigDecimal price = new BigDecimal(pr, MathContext.DECIMAL64);
+			String department = request.getParameter("department");
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
+			String description = request.getParameter("description");
+			String imageUrl = request.getParameter("imageUrl");
+
+			Item item = new Item();
+			item.setDepartment(department);
+			item.setDescription(description);
+			item.setImageUrl(imageUrl);
+			item.setItemName(itemName);
+			item.setPrice(price);
+			item.setQuantity(quantity);
+			item.setSeller(user);
+			
+			item.addItemToDB();
+			item.setItemId(Item.getMaxItemId());
+			item.addItemToSeller(user.getUser_id());
+			getSellerItems(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 

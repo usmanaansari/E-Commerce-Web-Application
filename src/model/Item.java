@@ -56,6 +56,12 @@ public class Item {
 	}
 
 
+	public Item() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public String getImageUrl() {
 		return imageUrl;
 	}
@@ -132,7 +138,7 @@ public class Item {
 
 			String query = "insert into item(item_name, quantity, department, price, " + "description, seller_id, image_url)"
 					+ "VALUES( '" + itemName + "', " + quantity + ", '" + department + "'," + price + ", '"
-					+ description + "', " + seller.getUser_id() + ",'" + imageUrl + " );";
+					+ description + "', " + seller.getUser_id() + ",'" + imageUrl + " ');";
 			Statement st = con.createStatement();
 			st.executeUpdate(query);
 
@@ -186,6 +192,19 @@ public class Item {
 		}
 	}
 	
+	public void addItemToSeller(int userId) {
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "insert into seller_items(seller_id, item_id) values(" + userId + ", " + itemId + ");";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			
+			DBConnection.close(con, null, st);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void deleteItemFromCart(int userId) {
 		try {
 			Connection con = DBConnection.getConnection();
@@ -197,6 +216,25 @@ public class Item {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static int getMaxItemId() {
+		int max = 0;
+		try {
+			Connection con = DBConnection.getConnection();
+			String query = "select max(item_id) from item;";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			if (rs.next()) {
+				max = rs.getInt(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return max;
+
 	}
 	
 	public static ArrayList<Item> getAllItems(){

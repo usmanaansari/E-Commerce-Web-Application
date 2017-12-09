@@ -82,8 +82,7 @@
             <input type="hidden" name="command" value="addReview" />
             <input type="hidden" name="itemId" value="${item.itemId}" />
           	 <div class="form-group">
-    				
-    			
+
     				<input class="form-control input-lg" id="inputlg" type="text" name="reviewDesc">
  			 </div>
               <input type=submit class="btn btn-success" value ="Leave a Review">
