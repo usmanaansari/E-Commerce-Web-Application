@@ -64,7 +64,7 @@ public class BillingInfoController extends HttpServlet {
 			
 		}
 		catch(Exception exc) {
-			
+			exc.printStackTrace();
 		}
 
 
@@ -98,18 +98,18 @@ public class BillingInfoController extends HttpServlet {
 	private void addBill(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException, ParseException{
 
 		String card_Number = request.getParameter("cardNumber");
-		String expiration_Date = (String)request.getParameter("expirationDate");
 		String security_Code = request.getParameter("securityCode");
-
-		String billing_Address = request.getParameter("billingAddress");
-
+		String billing_Address = request.getParameter("billingAddress");	
 		
-		String expDate = request.getParameter("expirationDate");
+        
+        String expDate = request.getParameter("expDate");
 		SimpleDateFormat format = new SimpleDateFormat("MMddyyyy");
         java.util.Date parsed = format.parse(expDate);
         java.sql.Date expirationDate = new java.sql.Date(parsed.getTime());
+        
+       
 	
-		BillingInfo bill = new BillingInfo(user, card_Number, expirationDate,Integer.parseInt(security_Code),billing_Address);
+		BillingInfo bill = new BillingInfo(user, card_Number, expirationDate,Integer.parseInt(security_Code), billing_Address);
 		bill.addBillingInfoToDB();
 		
 		
