@@ -80,6 +80,7 @@
 				</table>
 		
 		<input type ="submit" value="Save" />
+		<input type="hidden" name="command" value="update" />
 		</form>
 	
 	

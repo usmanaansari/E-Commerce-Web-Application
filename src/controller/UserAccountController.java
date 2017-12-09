@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.connector.Request;
+
 import model.Authenticator;
 import model.User;
 
@@ -32,11 +34,13 @@ public class UserAccountController extends HttpServlet {
 			
 			System.out.println(user.getFirst_name());
 			
+			if(req.getParameter("command") == null)
 			loadUser(req,resp);
+			else callUpdate(req, resp);
 			
 		}
 		catch(Exception exc) {
-			
+			exc.printStackTrace();
 		}
 		
 		
@@ -60,6 +64,7 @@ public class UserAccountController extends HttpServlet {
 		user.setUserAddress(Address);
 		
 		user.updateUser();
+		loadUser(req, resp);
 		
 	}
 	private void loadUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -72,7 +77,7 @@ public class UserAccountController extends HttpServlet {
 		
 	
 		dispatcher.forward(req, resp);
-		callUpdate(req,resp);
+		
 		
 	}
 	
