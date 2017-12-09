@@ -55,13 +55,21 @@
    
     <c:forEach var= "tempItem" items = "${orderList}" > 
     
+    	<c:url var ="itemLink" value = "OrderController">
+    		<c:param name="command" value = "getOrderInfo"/>
+    		<c:param name="orderID" value = "${tempItem.order_ID}" />
+    	</c:url>
     <div class="card mt-4">
             
             <div class="card-body">
     		
-    		<h3 class="card-title">${tempItem.order_date}</h3>
+    		<h4 class="card-title">
+    		<a href="${itemLink}">${tempItem.order_date}</a>
+    		</h4>
     		Order Status: ${tempItem.order_status} <br>
     		Total Price: ${tempItem.total} <br>
+    		
+    		
     		
     		
     		</div>

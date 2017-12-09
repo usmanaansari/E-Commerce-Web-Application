@@ -116,15 +116,3 @@
 
 </html>
 
-
-<body>
-	ITEM <br>
-	Item Name: ${item.itemName} <br>
-	Item Description: ${item.description} <br>
-	Item Price: ${item.price } <br>
-		<form action="CartController" method="GET">
-			<input type="hidden" name="command" value="addToCart" />
-			<input type="hidden" name="itemId" value="${item.itemId}" />
-			<input type="submit" value="Add to Cart" />
-		</form>
-</body>
