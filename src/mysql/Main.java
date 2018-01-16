@@ -3,25 +3,19 @@ package mysql;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import model.Order;
+import model.User;
 
 
 public class Main {
     public static void main(String[] args){
-        try{
-    		Connection con = DBConnection.getConnection();
-    		String query = "select * from user where user_id = 123";
-    		Statement st = con.createStatement();
-    		ResultSet rs = st.executeQuery(query);
-    		
-    		while(rs.next()){
-    			int id = rs.getInt("user_id");
-				String name = rs.getString("user_firstname");
-				String email = rs.getString("user_email");
-				System.out.println(id + " " + name + " " + email);
-    		}
-        }catch(Exception e){
-        	e.printStackTrace();
-        }
         
+    	ArrayList<Order> orders = new ArrayList<Order>();
+        
+    	orders = Order.getOrdersForUser(143);
+    	
+    	System.out.println(orders);
     }
 }
